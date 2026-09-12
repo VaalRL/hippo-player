@@ -6,13 +6,14 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#0f172a">
-  <title>🦛 何嘉仁隨身聽 - Hippo Player 全系列教材隨身聽</title>
+  <title>🦛 河馬隨身聽 - Hippo Player 全系列英語教材隨身聽</title>
   
   <!-- Open Graph & Social Sharing -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="🦛 何嘉仁隨身聽 Hippo Player - Go Magic! 全系列實體教材隨身聽">
+  <meta property="og:title" content="🦛 河馬隨身聽 Hippo Player - Go Magic! 全系列實體教材隨身聽">
   <meta property="og:description" content="專為實體英語教材課後複習打造的極簡隨身聽 · 雙格純數字鍵盤直連 · 手機大按鍵 · 即開即播">
-  <meta property="og:image" content="favicon.svg">
+  <meta property="og:image" content="https://vaalrl.github.io/hippo-player/favicon.svg">
+  <meta property="og:url" content="https://vaalrl.github.io/hippo-player/">
   
   <!-- Tab Icon (Favicon) & App Icons -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -35,8 +36,8 @@
 
   <style>
     :root {
-      /* 何嘉仁深色模式 (Hippo Dark Theme) */
-      --primary: #f19700;        /* 何嘉仁招牌活力橘 */
+      /* 河馬深色模式 (Hippo Dark Theme) */
+      --primary: #f19700;        /* 招牌活力暖橘 */
       --primary-hover: #fb923c;
       --primary-glow: rgba(241, 151, 0, 0.35);
       --bg: #0f172a;             /* 深午夜藍黑 */
@@ -56,7 +57,7 @@
     }
 
     [data-theme="light"] {
-      /* 何嘉仁淺色模式 (Hippo Light Theme) */
+      /* 河馬淺色模式 (Hippo Light Theme) */
       --primary: #ea580c;        /* 淺色下高對比活力暖橘 */
       --primary-hover: #f19700;
       --primary-glow: rgba(241, 151, 0, 0.25);
@@ -92,6 +93,8 @@
       align-items: center;
       padding: 14px 12px 36px 12px;
       transition: background-color 0.25s ease, color 0.25s ease;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     .container {
@@ -100,6 +103,7 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
+      box-sizing: border-box;
     }
 
     /* Header */
@@ -240,17 +244,24 @@
       box-shadow: 0 4px 14px var(--primary-glow);
     }
 
-    /* Direct Jump Numpad Input */
+    /* Direct Jump Numpad Input (Mobile Responsive Fix) */
     .direct-jump-wrap {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       gap: 8px;
+      width: 100%;
+      box-sizing: border-box;
     }
     .input-col {
       flex: 1;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 4px;
+    }
+    .input-col.col-track {
+      flex: 1.25;
+      min-width: 0;
     }
     .input-col label {
       font-size: 0.72rem;
@@ -259,39 +270,50 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .num-input {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
       background: var(--input-bg);
       border: 2px solid var(--card-border);
       border-radius: 14px;
       color: var(--input-text);
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 900;
       text-align: center;
       padding: 10px 4px;
       outline: none;
-      transition: all 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
       caret-color: var(--primary);
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
     }
     .num-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 12px var(--primary-glow);
     }
     .input-separator {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: var(--primary);
-      padding: 16px 2px 0 2px;
       user-select: none;
+      flex-shrink: 0;
+      padding-bottom: 12px;
+      width: 18px;
+      text-align: center;
     }
     .play-btn-main {
       background: var(--primary);
       color: #ffffff;
       border: none;
       border-radius: 14px;
-      width: 56px;
-      height: 56px;
-      font-size: 1.4rem;
+      width: 52px;
+      height: 52px;
+      font-size: 1.35rem;
       font-weight: 900;
       cursor: pointer;
       display: flex;
@@ -299,7 +321,6 @@
       justify-content: center;
       transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
       flex-shrink: 0;
-      margin-top: 18px;
       box-shadow: 0 4px 14px var(--primary-glow);
     }
     .play-btn-main:active {
@@ -309,6 +330,53 @@
     .play-btn-main.is-playing {
       background: var(--success);
       box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    /* 小螢幕 (寬度 <= 380px) 極致防爆自適應 */
+    @media (max-width: 380px) {
+      body {
+        padding: 10px 8px 30px 8px;
+      }
+      .card {
+        padding: 12px;
+        border-radius: 14px;
+      }
+      .direct-jump-wrap {
+        gap: 6px;
+      }
+      .num-input {
+        font-size: 1.35rem;
+        padding: 8px 2px;
+        border-radius: 12px;
+      }
+      .play-btn-main {
+        width: 46px;
+        height: 46px;
+        font-size: 1.2rem;
+        border-radius: 12px;
+      }
+      .input-separator {
+        width: 14px;
+        font-size: 1.3rem;
+        padding-bottom: 10px;
+      }
+      .controls-row {
+        gap: 10px;
+      }
+      .ctrl-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 0.95rem;
+      }
+      .ctrl-btn-main {
+        width: 52px;
+        height: 52px;
+        font-size: 1.3rem;
+      }
+      .options-row {
+        flex-wrap: wrap;
+        gap: 10px 6px;
+      }
     }
 
     .hint-text {
@@ -712,7 +780,7 @@
         <div class="brand-title-wrap">
           <img src="favicon.svg" alt="Hippo Logo" class="brand-icon">
           <div>
-            <h1>🦛 何嘉仁隨身聽</h1>
+            <h1>🦛 河馬隨身聽</h1>
             <div class="brand-sub">Hippo Player · Go Magic! 全系列 CD 線上聽</div>
           </div>
         </div>
@@ -754,12 +822,12 @@
         <span class="badge badge-primary">手機大數字鍵盤</span>
       </div>
       <div class="direct-jump-wrap">
-        <div class="input-col">
-          <label for="input-cd">CD (片)</label>
+        <div class="input-col col-cd">
+          <label for="input-cd">CD (片號)</label>
           <input type="text" id="input-cd" class="num-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" value="1" placeholder="1" autocomplete="off">
         </div>
         <div class="input-separator">—</div>
-        <div class="input-col" style="flex: 1.5;">
+        <div class="input-col col-track">
           <label for="input-track">Track (曲目)</label>
           <input type="text" id="input-track" class="num-input" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="01" placeholder="01" autocomplete="off">
         </div>
@@ -868,7 +936,7 @@
 
     <!-- Footer -->
     <footer>
-      <div>🦛 何嘉仁隨身聽 · Hippo Player v1.0.0</div>
+      <div>🦛 河馬隨身聽 · Hippo Player v1.0.0</div>
       <div>
         100% 免費開源純前端 · 僅供個人學習與持有實體教材課後對照使用
       </div>
@@ -1271,7 +1339,7 @@
 
       navigator.mediaSession.metadata = new MediaMetadata({
         title: titleStr,
-        artist: "何嘉仁國小英語 Go Magic!",
+        artist: "Go Magic! 國小英語 (GM Series)",
         album: albumStr,
         artwork: [
           { src: "favicon.svg", sizes: "512x512", type: "image/svg+xml" },
@@ -1325,15 +1393,33 @@
         }
       });
 
-      // 雙欄輸入與跳轉
-      dom.inputCd.addEventListener("input", (e) => {
-        let val = parseInt(e.target.value, 10);
+      // 雙欄輸入與跳轉 (點擊全選 · 純數字過濾 · 自動換格)
+      dom.inputCd.addEventListener("focus", function() { this.select(); });
+      dom.inputCd.addEventListener("click", function() { this.select(); });
+      dom.inputTrack.addEventListener("focus", function() { this.select(); });
+      dom.inputTrack.addEventListener("click", function() { this.select(); });
+
+      dom.inputCd.addEventListener("input", function() {
+        this.value = this.value.replace(/[^0-9]/g, "");
+        const val = parseInt(this.value, 10);
         if (val === 1 || val === 2) {
           state.currentDisc = val;
-          // 自動跳格至曲目欄
+          // 自動跳格至曲目欄並全選
           dom.inputTrack.focus();
           dom.inputTrack.select();
         }
+      });
+
+      dom.inputCd.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          dom.inputTrack.focus();
+          dom.inputTrack.select();
+        }
+      });
+
+      dom.inputTrack.addEventListener("input", function() {
+        this.value = this.value.replace(/[^0-9]/g, "");
       });
 
       const handleJumpSubmit = () => {
@@ -1351,6 +1437,7 @@
       dom.btnJumpPlay.addEventListener("click", handleJumpSubmit);
       dom.inputTrack.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
+          e.preventDefault();
           handleJumpSubmit();
           dom.inputTrack.blur();
         }

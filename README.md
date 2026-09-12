@@ -1,8 +1,12 @@
-# 🦛 何嘉仁隨身聽 (Hippo Player)
+# 🦛 河馬隨身聽 (Hippo Player)
 
 > 專為實體英語教科書課後複習打造的極簡隨身聽 · 雙格純數字鍵盤直連 · Go Magic! 全系列 1~4 冊 · GitHub Pages 零配置即開即播
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online%20(GitHub%20Pages)-brightgreen?style=for-the-badge&logo=github)](https://github.com/)
+### 🌐 線上即用網址 (Live Demo)
+👉 **[https://vaalrl.github.io/hippo-player/](https://vaalrl.github.io/hippo-player/)**
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online%20(即開即用)-brightgreen?style=for-the-badge&logo=github)](https://vaalrl.github.io/hippo-player/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Active-blue?style=for-the-badge)](https://vaalrl.github.io/hippo-player/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0%20(Pure%20Vanilla)-success)](#)
 [![Mobile Optimized](https://img.shields.io/badge/Mobile-iOS%20%2F%20Android-orange)](#)
@@ -12,7 +16,7 @@
 
 ## 📖 專案簡介 (Introduction)
 
-**何嘉仁隨身聽（Hippo Player）** 是一個單檔純前端（Single-file Vanilla Web App）的輕量級英語教材音訊隨身聽，專為解決國小學童與家長在課後複習實體英語教材時，原廠網頁版按鈕過小、操作層級過深、手機瀏覽器排版不佳的痛點。
+**河馬隨身聽（Hippo Player）** 是一個單檔純前端（Single-file Vanilla Web App）的輕量級英語教材音訊隨身聽，專為解決國小學童與家長在課後複習實體英語教材時，原廠網頁版按鈕過小、操作層級過深、手機瀏覽器排版不便的痛點。
 
 使用者只要翻開正版實體課本，依照內頁印製的 CD 與曲目編號（例如課本標示「**CD1 Track 05**」或「**1-05**」），在手機上直接點按純數字鍵盤：**左格輸入 1、右格輸入 5**，按下 Enter 或播放鍵即可瞬間直連播放對應音軌！
 
@@ -56,9 +60,9 @@
 - 當前播放曲目以高對比醒目亮橘標記，切換曲目時自動捲動定位。
 - 點擊任一曲目方塊即刻跳轉播放。
 
-### 5. 🎨 何嘉仁官方 CI 品牌視覺與深淺雙模式
-- **經典品牌色傳承**：
-  - 何嘉仁招牌活力亮橘：`#f19700`
+### 5. 🎨 經典活潑橙藍視覺風格與深淺雙模式
+- **經典視覺色彩**：
+  - 招牌活力亮橘：`#f19700`
   - 晴空課本活力天藍：`#38bdf8` / `#0284c7`
   - 深色午夜藍黑（保護學童夜間視力）：`#0f172a`
   - 淺色清爽晨曦雪白：`#f8fafc`
@@ -90,34 +94,35 @@
 
 ---
 
-## 🚀 部署至 GitHub Pages 指引 (Deployment Guide)
+## 🚀 快速上手與部署指引 (Deployment Guide)
 
-本專案完全為靜態網頁架構，支援 1 分鐘免費部署至 GitHub Pages：
+本專案完全為靜態網頁架構，已準備就緒，可直接部署至 GitHub Pages：
 
-### 步驟 1：建立 GitHub 儲存庫並推送代碼
+### 專屬線上網址
+👉 **[https://vaalrl.github.io/hippo-player/](https://vaalrl.github.io/hippo-player/)**
+
+### 本機推送代碼步驟
 ```bash
 # 在本機 hippo-player 目錄下執行
-git init
 git add .
-git commit -m "feat: initial release of hippo-player with GM1~GM4 support"
+git commit -m "feat: release hippo-player with GM1~GM4 support and PWA assets"
 git branch -M main
-git remote add origin https://github.com/<你的使用者名稱>/hippo-player.git
+git remote add origin https://github.com/VaalRL/hippo-player.git
 git push -u origin main
 ```
 
-### 步驟 2：啟用 GitHub Pages
-1. 前往您 GitHub 上的 `hippo-player` 儲存庫頁面。
+### 啟用 GitHub Pages 設定
+1. 前往 GitHub 儲存庫頁面：`https://github.com/VaalRL/hippo-player`
 2. 點擊頂部的 **Settings**（設定）分頁。
 3. 在左側選單中找到 **Pages**。
 4. 在 **Build and deployment** 下方的 **Source** 選擇 **Deploy from a branch**。
 5. 將 **Branch** 選擇為 `main` 分支，資料夾選擇 `/ (root)`，點擊 **Save**。
-6. 等候 30~60 秒，頁面上方將出現專屬綠色勾勾網址：  
-   👉 `https://<你的使用者名稱>.github.io/hippo-player/`
+6. 等候約 30~60 秒，即可在 **[https://vaalrl.github.io/hippo-player/](https://vaalrl.github.io/hippo-player/)** 暢快使用！
 
-### 步驟 3：在手機上新增為 App (PWA)
+### 在手機上新增為 App (PWA)
 - **iPhone (iOS Safari)**：開啟網址 ➔ 點擊底部「分享」按鈕 ➔ 選擇 **「加入主畫面」**。
 - **Android (Chrome)**：開啟網址 ➔ 點擊右上角「⋮」選單 ➔ 選擇 **「加到主螢幕」** 或 **「安裝應用程式」**。
-- 手機桌面即會生成一個全螢幕獨立運行、無瀏覽器網址列干擾的何嘉仁隨身聽！
+- 手機桌面即會生成一個全螢幕獨立運行、無瀏覽器網址列干擾的專屬隨身聽！
 
 ---
 
@@ -126,7 +131,7 @@ git push -u origin main
 本專案之開發與開源僅作為**個人家庭課後自主學習輔助與無障礙介面優化之技術研究用途**。請詳閱完整的 [DISCLAIMER.md](DISCLAIMER.md)：
 
 1. **非營利教育輔助性質**：本專案為 100% 免費、開源且非商業專案，無廣告、無會員制、無任何營利機制。
-2. **非官方獨立研發**：本專案與「何嘉仁文教事業股份有限公司」無任何官方合作、代言、商業隸屬或授權關係。
+2. **非官方獨立研發**：本專案為個人獨立研發之第三方輔助工具，與相關實體英語教材之原出版機構或任何出版法人均無任何官方合作、代言、商業隸屬或授權關係。
 3. **無音訊伺服器託管**：本專案 Repository **完全不包含、不儲存、亦未託管** 任何 MP3 音檔。所有音訊皆由使用者個人瀏覽器在客戶端發起直接連線。
 4. **實體教材必備性**：本工具播放之音軌均為課堂練習指令與聽力配合題，**若無正版實體課本圖文對照，無法達成實質學習效果**。本專案強烈呼籲並倡導使用者購買合法正版之紙本教材。
 5. **著作權歸屬**：所有教材內容、錄音與商標之智慧財產權，均屬原出版機構或其法定權利人所有。

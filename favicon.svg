@@ -6,7 +6,7 @@
       <stop offset="100%" stop-color="#0f172a" />
     </linearGradient>
 
-    <!-- 品牌活力橘黃漸層 (何嘉仁品牌色) -->
+    <!-- 活力橘黃漸層 (Brand Orange) -->
     <linearGradient id="brandOrange" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#fb923c" />
       <stop offset="50%" stop-color="#f19700" />
