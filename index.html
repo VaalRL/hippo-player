@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0f172a">
+  <title>🦛 何嘉仁隨身聽 - Hippo Player 全系列教材隨身聽</title>
+  
+  <!-- Open Graph & Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="🦛 何嘉仁隨身聽 Hippo Player - Go Magic! 全系列實體教材隨身聽">
+  <meta property="og:description" content="專為實體英語教材課後複習打造的極簡隨身聽 · 雙格純數字鍵盤直連 · 手機大按鍵 · 即開即播">
+  <meta property="og:image" content="favicon.svg">
+  
+  <!-- Tab Icon (Favicon) & App Icons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- 防止深色/淺色切換時畫面閃爍 (Anti-FOUC Script) -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem("hippo_theme");
+        const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        const theme = saved || (prefersLight ? "light" : "dark");
+        document.documentElement.setAttribute("data-theme", theme);
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", theme === "light" ? "#f8fafc" : "#0f172a");
+      } catch(e) {}
+    })();
+  </script>
+
+  <style>
+    :root {
+      /* 何嘉仁深色模式 (Hippo Dark Theme) */
+      --primary: #f19700;        /* 何嘉仁招牌活力橘 */
+      --primary-hover: #fb923c;
+      --primary-glow: rgba(241, 151, 0, 0.35);
+      --bg: #0f172a;             /* 深午夜藍黑 */
+      --card: #1e293b;           /* 沉穩深石板藍卡片 */
+      --card-border: #334155;    /* 石板藍邊框 */
+      --text: #f8fafc;           /* 柔和雪白文字 */
+      --text-muted: #94a3b8;     /* 灰藍次級文字 */
+      --accent: #38bdf8;         /* 活力天藍色 */
+      --accent-hover: #0284c7;
+      --success: #10b981;        /* 翡翠綠 */
+      --input-bg: #0b1120;       /* 深暗色輸入底色 */
+      --input-text: #f8fafc;
+      --item-hover: #334155;
+      --progress-bg: #334155;    /* 進度條槽底色 */
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      --radius: 16px;
+    }
+
+    [data-theme="light"] {
+      /* 何嘉仁淺色模式 (Hippo Light Theme) */
+      --primary: #ea580c;        /* 淺色下高對比活力暖橘 */
+      --primary-hover: #f19700;
+      --primary-glow: rgba(241, 151, 0, 0.25);
+      --bg: #f8fafc;             /* 清朗雪白底色 */
+      --card: #ffffff;           /* 純白卡片 */
+      --card-border: #e2e8f0;    /* 淺灰邊框 */
+      --text: #0f172a;           /* 深石板黑文字 */
+      --text-muted: #64748b;     /* 石板灰次級文字 */
+      --accent: #0284c7;         /* 鮮豔晴空藍 */
+      --accent-hover: #0369a1;
+      --success: #059669;        /* 翡翠綠 */
+      --input-bg: #fff7ed;       /* 淡淡橘粉輸入框 */
+      --input-text: #0f172a;
+      --item-hover: #ffedd5;
+      --progress-bg: #e2e8f0;    /* 淺灰進度底色 */
+      --shadow: 0 8px 24px -4px rgba(241, 151, 0, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px 12px 36px 12px;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 8px 0 2px 0;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .brand-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+    }
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--primary-glow);
+      flex-shrink: 0;
+    }
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .brand-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+    .theme-toggle-btn {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      font-size: 1.15rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle-btn:hover {
+      border-color: var(--primary);
+      transform: rotate(15deg);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Series Select & Disc Pill Switcher */
+    .custom-select {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: var(--text);
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23f19700%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 14px;
+    }
+    .custom-select:focus {
+      border-color: var(--primary);
+    }
+
+    .disc-switcher {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .disc-btn {
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: all 0.2s;
+    }
+    .disc-btn .disc-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+    .disc-btn:hover {
+      border-color: var(--primary);
+      color: var(--text);
+    }
+    .disc-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    /* Direct Jump Numpad Input */
+    .direct-jump-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .input-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .input-col label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+    .num-input {
+      background: var(--input-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 14px;
+      color: var(--input-text);
+      font-size: 1.6rem;
+      font-weight: 900;
+      text-align: center;
+      padding: 10px 4px;
+      outline: none;
+      transition: all 0.2s;
+      caret-color: var(--primary);
+    }
+    .num-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+    .input-separator {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--primary);
+      padding: 16px 2px 0 2px;
+      user-select: none;
+    }
+    .play-btn-main {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      width: 56px;
+      height: 56px;
+      font-size: 1.4rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      flex-shrink: 0;
+      margin-top: 18px;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+    .play-btn-main:active {
+      transform: scale(0.93);
+      background: var(--primary-hover);
+    }
+    .play-btn-main.is-playing {
+      background: var(--success);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    .hint-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* Player Display Card */
+    .player-display {
+      text-align: center;
+      padding: 4px 0 6px 0;
+    }
+    .book-cover-preview {
+      width: 64px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin: 0 auto 8px auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: block;
+      background: #1e293b;
+    }
+    .now-playing-series {
+      font-size: 0.78rem;
+      color: var(--primary);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .now-playing-title {
+      font-size: 1.22rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-top: 3px;
+    }
+    .now-playing-sub {
+      font-size: 0.76rem;
+      color: var(--accent);
+      margin-top: 2px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    /* Sleek Spotify-like Progress Bar */
+    .progress-section {
+      margin-top: 10px;
+      padding: 0 4px;
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: var(--progress-bg);
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      touch-action: none;
+      user-select: none;
+    }
+    .progress-buffered {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    [data-theme="light"] .progress-buffered {
+      background: rgba(0, 0, 0, 0.08);
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 4px;
+      position: relative;
+      pointer-events: none;
+      transition: width 0.04s linear;
+    }
+    .progress-thumb {
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      background: #ffffff;
+      border: 2.5px solid var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      transition: transform 0.1s;
+    }
+    .progress-bar-container:hover .progress-thumb {
+      transform: translateY(-50%) scale(1.2);
+    }
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Player Controls Bar */
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 6px;
+    }
+    .ctrl-btn {
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .ctrl-btn:active {
+      transform: scale(0.9);
+      background: var(--item-hover);
+    }
+    .ctrl-btn-main {
+      background: var(--primary);
+      border: none;
+      color: #ffffff;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      font-size: 1.45rem;
+      box-shadow: 0 4px 18px var(--primary-glow);
+    }
+    .ctrl-btn-main:hover {
+      background: var(--primary-hover);
+    }
+    .ctrl-btn-main.is-playing {
+      background: var(--success);
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Options Pill Row */
+    .options-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--card-border);
+    }
+    .icon-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .icon-toggle input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .icon-toggle:hover {
+      color: var(--text);
+    }
+
+    .speed-pills {
+      display: flex;
+      gap: 4px;
+    }
+    .speed-btn {
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .speed-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+      font-weight: 900;
+    }
+
+    /* Share & Download Actions */
+    .share-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .action-btn {
+      flex: 1;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .action-btn:hover {
+      border-color: var(--primary);
+    }
+    .action-btn:active {
+      transform: scale(0.97);
+      background: var(--item-hover);
+    }
+    .action-btn.copied {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    /* Track Drawer / Grid View */
+    .tracks-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .track-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+      gap: 6px;
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 4px;
+      border-radius: 10px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+    }
+    .track-pill {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 0;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .track-pill:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .track-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px var(--primary-glow);
+    }
+
+    /* Shortcuts Hint */
+    .shortcuts-hint {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 10px 12px;
+      line-height: 1.6;
+      border-radius: 12px;
+      background: var(--input-bg);
+      border: 1px dashed var(--card-border);
+    }
+    .shortcuts-title {
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+      font-size: 0.76rem;
+    }
+    .shortcuts-keys {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 10px;
+    }
+    .shortcuts-hint code {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    /* Error Banner */
+    .error-banner {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    [data-theme="light"] .error-banner {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #b91c1c;
+    }
+
+    /* Floating Toast Notification */
+    .floating-toast {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-40px);
+      background: var(--card);
+      border: 1.5px solid var(--primary);
+      color: var(--text);
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 9999;
+      white-space: nowrap;
+    }
+    .floating-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Badge & Utilities */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .badge-primary {
+      background: rgba(241, 151, 0, 0.18);
+      color: var(--primary);
+    }
+    .badge-accent {
+      background: rgba(56, 189, 248, 0.18);
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-inner">
+        <div class="brand-title-wrap">
+          <img src="favicon.svg" alt="Hippo Logo" class="brand-icon">
+          <div>
+            <h1>🦛 何嘉仁隨身聽</h1>
+            <div class="brand-sub">Hippo Player · Go Magic! 全系列 CD 線上聽</div>
+          </div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle-btn" title="切換深色/淺色模式" aria-label="切換深色/淺色模式">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 1. 冊別與光碟片切換 -->
+    <div class="card">
+      <div class="label">
+        <span>1. 選擇教材冊別 (Book)</span>
+        <span id="total-tracks-badge" class="badge badge-accent">全冊 134 首</span>
+      </div>
+      <select id="book-select" class="custom-select" aria-label="選擇教材冊別">
+        <option value="GM1">Go Magic! 1 (第1冊 · 小三上)</option>
+        <option value="GM2">Go Magic! 2 (第2冊 · 小三下)</option>
+        <option value="GM3">Go Magic! 3 (第3冊 · 小四上)</option>
+        <option value="GM4">Go Magic! 4 (第4冊 · 小四下)</option>
+      </select>
+
+      <div class="disc-switcher">
+        <button type="button" class="disc-btn active" data-disc="1" id="disc-btn-1">
+          <span>💿 CD 1</span>
+          <span class="disc-sub" id="disc-sub-1">88 首 (Track 01~88)</span>
+        </button>
+        <button type="button" class="disc-btn" data-disc="2" id="disc-btn-2">
+          <span>💿 CD 2</span>
+          <span class="disc-sub" id="disc-sub-2">46 首 (Track 01~46)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. 雙格純數字鍵盤直連 (大按鈕輸入) -->
+    <div class="card">
+      <div class="label">
+        <span>2. 課本標記雙格直連 (CD — 曲目)</span>
+        <span class="badge badge-primary">手機大數字鍵盤</span>
+      </div>
+      <div class="direct-jump-wrap">
+        <div class="input-col">
+          <label for="input-cd">CD (片)</label>
+          <input type="text" id="input-cd" class="num-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" value="1" placeholder="1" autocomplete="off">
+        </div>
+        <div class="input-separator">—</div>
+        <div class="input-col" style="flex: 1.5;">
+          <label for="input-track">Track (曲目)</label>
+          <input type="text" id="input-track" class="num-input" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="01" placeholder="01" autocomplete="off">
+        </div>
+        <button id="btn-jump-play" class="play-btn-main" title="立即播放" aria-label="立即播放">
+          <span id="jump-play-icon">▶</span>
+        </button>
+      </div>
+      <div class="hint-text">
+        💡 課本標記「CD 1 Track 05」➔ 左格輸入 1，右格輸入 5，按下 Enter 立即聽
+      </div>
+    </div>
+
+    <!-- 3. 正在播放展示與控制中心 -->
+    <div class="card">
+      <div class="player-display">
+        <img id="book-cover-img" src="https://neweteaching.hess.com.tw/CDOnline/images/GM1.jpg" alt="教材封面" class="book-cover-preview" onerror="this.src='favicon.svg'">
+        <div id="now-series" class="now-playing-series">Go Magic! 1 · CD 1</div>
+        <div id="now-title" class="now-playing-title">CD1 Track 01</div>
+        <div id="now-sub" class="now-playing-sub">GM1-CD1 / 1.mp3</div>
+      </div>
+
+      <!-- 進度條與時間顯示 (Spotify 風格) -->
+      <div class="progress-section">
+        <div class="progress-bar-container" id="progress-container">
+          <div class="progress-buffered" id="progress-buffered"></div>
+          <div class="progress-bar-fill" id="progress-fill">
+            <div class="progress-thumb"></div>
+          </div>
+        </div>
+        <div class="time-display">
+          <span id="time-current">00:00</span>
+          <span id="time-duration">--:--</span>
+        </div>
+      </div>
+
+      <!-- 核心控制鈕 -->
+      <div class="controls-row">
+        <button id="btn-rewind" class="ctrl-btn" title="快退 5 秒 (←)" aria-label="快退 5 秒">↺5</button>
+        <button id="btn-prev" class="ctrl-btn" title="上一首 (P)" aria-label="上一首">⏮</button>
+        <button id="btn-play-toggle" class="ctrl-btn ctrl-btn-main" title="播放 / 暫停 (Space)" aria-label="播放 / 暫停">
+          <span id="main-play-icon">▶</span>
+        </button>
+        <button id="btn-next" class="ctrl-btn" title="下一首 (N)" aria-label="下一首">⏭</button>
+        <button id="btn-forward" class="ctrl-btn" title="快進 5 秒 (→)" aria-label="快進 5 秒">5↻</button>
+      </div>
+
+      <!-- 循環模式與播放倍速 -->
+      <div class="options-row">
+        <label class="icon-toggle" title="循環播放此曲目 (快捷鍵: L)">
+          <input type="checkbox" id="chk-loop">
+          <span>🔁 單曲循環</span>
+        </label>
+        <label class="icon-toggle" title="此曲結束後自動播放下一首">
+          <input type="checkbox" id="chk-autoplay" checked>
+          <span>⏭ 連續播放</span>
+        </label>
+        <div class="speed-pills">
+          <button class="speed-btn" data-speed="0.75">0.75x</button>
+          <button class="speed-btn active" data-speed="1.0">1.0x</button>
+          <button class="speed-btn" data-speed="1.25">1.25x</button>
+          <button class="speed-btn" data-speed="1.5">1.5x</button>
+        </div>
+      </div>
+
+      <!-- 分享連結與下載直連 -->
+      <div class="share-row">
+        <button id="btn-share" class="action-btn" title="複製目前曲目的分享連結">
+          <span>📋 複製分享連結</span>
+        </button>
+        <a id="link-direct-mp3" class="action-btn" href="#" target="_blank" rel="noopener noreferrer" title="開啟官方 MP3 原始檔案">
+          <span>📥 另存 MP3</span>
+        </a>
+      </div>
+
+      <!-- 錯誤狀態提示橫幅 -->
+      <div id="error-banner" class="error-banner">
+        <span>⚠️</span>
+        <span id="error-msg">音訊載入中或遠端端點稍有延遲，正為您重試...</span>
+      </div>
+    </div>
+
+    <!-- 4. 曲目九宮格快速點選抽屜 -->
+    <div class="card">
+      <div class="tracks-header">
+        <div class="label" style="margin-bottom: 0;">
+          <span>3. 全片曲目速選 (<span id="drawer-disc-label">CD 1</span>)</span>
+        </div>
+        <span id="track-count-badge" class="badge badge-primary">共 88 首</span>
+      </div>
+      <div class="track-grid" id="track-grid-container">
+        <!-- 動態渲染 Track 01 ~ Track 88 -->
+      </div>
+    </div>
+
+    <!-- 5. 鍵盤快捷鍵提示 (桌面端體驗) -->
+    <div class="shortcuts-hint">
+      <div class="shortcuts-title">⌨️ 鍵盤快捷鍵 (Desktop Shortcuts)</div>
+      <div class="shortcuts-keys">
+        <span><code>Space</code> 播放/暫停</span>
+        <span><code>←</code> <code>→</code> 快退/快進 5秒</span>
+        <span><code>P</code> <code>N</code> 上一首/下一首</span>
+        <span><code>L</code> 單曲循環</span>
+        <span><code>M</code> 靜音</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div>🦛 何嘉仁隨身聽 · Hippo Player v1.0.0</div>
+      <div>
+        100% 免費開源純前端 · 僅供個人學習與持有實體教材課後對照使用
+      </div>
+      <div>
+        <a href="DISCLAIMER.md" target="_blank">法律免責聲明與合理使用原則</a> · 
+        <a href="https://github.com/VaalRL/hippo-player" target="_blank" rel="noopener">GitHub 原始碼</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 浮動 Toast 提示 -->
+  <div id="toast" class="floating-toast">已複製專屬分享連結！</div>
+
+  <!-- 核心隱藏原生音訊元件 -->
+  <audio id="audio-engine" preload="metadata" playsinline></audio>
+
+  <script>
+    /* ==========================================================================
+       Hippo Player - 核心架構與狀態管理 (Vanilla JS / Zero Dependency)
+       ========================================================================== */
+
+    // 冊別資料庫 (內建 GM1~GM4 完整配置，即開即用零延遲)
+    const HESS_CATALOG = {
+      baseUrl: "https://neweteaching.hess.com.tw/CDOnline/audio/",
+      books: {
+        "GM1": {
+          id: "GM1",
+          name: "Go Magic! 1 (第1冊 · 小三上)",
+          cover: "https://neweteaching.hess.com.tw/CDOnline/images/GM1.jpg",
+          discs: {
+            1: { name: "CD 1", folder: "GM1-CD1", totalTracks: 88 },
+            2: { name: "CD 2", folder: "GM1-CD2", totalTracks: 46 }
+          }
+        },
+        "GM2": {
+          id: "GM2",
+          name: "Go Magic! 2 (第2冊 · 小三下)",
+          cover: "https://neweteaching.hess.com.tw/CDOnline/images/GM2.jpg",
+          discs: {
+            1: { name: "CD 1", folder: "GM2-CD1", totalTracks: 76 },
+            2: { name: "CD 2", folder: "GM2-CD2", totalTracks: 48 }
+          }
+        },
+        "GM3": {
+          id: "GM3",
+          name: "Go Magic! 3 (第3冊 · 小四上)",
+          cover: "https://neweteaching.hess.com.tw/CDOnline/images/GM3.jpg",
+          discs: {
+            1: { name: "CD 1", folder: "GM3-CD1", totalTracks: 80 },
+            2: { name: "CD 2", folder: "GM3-CD2", totalTracks: 46 }
+          }
+        },
+        "GM4": {
+          id: "GM4",
+          name: "Go Magic! 4 (第4冊 · 小四下)",
+          cover: "https://neweteaching.hess.com.tw/CDOnline/images/GM4.jpg",
+          discs: {
+            1: { name: "CD 1", folder: "GM4-CD1", totalTracks: 78 },
+            2: { name: "CD 2", folder: "GM4-CD2", totalTracks: 46 }
+          }
+        }
+      }
+    };
+
+    // 播放器狀態物件
+    const state = {
+      currentBook: "GM1",
+      currentDisc: 1,
+      currentTrack: 1,
+      isPlaying: false,
+      isLooping: false,
+      isAutoplayNext: true,
+      playbackRate: 1.0,
+      isDraggingProgress: false
+    };
+
+    // DOM 元素快取
+    const dom = {
+      themeToggle: document.getElementById("theme-toggle"),
+      themeIcon: document.getElementById("theme-icon"),
+      bookSelect: document.getElementById("book-select"),
+      totalTracksBadge: document.getElementById("total-tracks-badge"),
+      discBtn1: document.getElementById("disc-btn-1"),
+      discBtn2: document.getElementById("disc-btn-2"),
+      discSub1: document.getElementById("disc-sub-1"),
+      discSub2: document.getElementById("disc-sub-2"),
+      inputCd: document.getElementById("input-cd"),
+      inputTrack: document.getElementById("input-track"),
+      btnJumpPlay: document.getElementById("btn-jump-play"),
+      jumpPlayIcon: document.getElementById("jump-play-icon"),
+      bookCoverImg: document.getElementById("book-cover-img"),
+      nowSeries: document.getElementById("now-series"),
+      nowTitle: document.getElementById("now-title"),
+      nowSub: document.getElementById("now-sub"),
+      progressContainer: document.getElementById("progress-container"),
+      progressBuffered: document.getElementById("progress-buffered"),
+      progressFill: document.getElementById("progress-fill"),
+      timeCurrent: document.getElementById("time-current"),
+      timeDuration: document.getElementById("time-duration"),
+      btnRewind: document.getElementById("btn-rewind"),
+      btnPrev: document.getElementById("btn-prev"),
+      btnPlayToggle: document.getElementById("btn-play-toggle"),
+      mainPlayIcon: document.getElementById("main-play-icon"),
+      btnNext: document.getElementById("btn-next"),
+      btnForward: document.getElementById("btn-forward"),
+      chkLoop: document.getElementById("chk-loop"),
+      chkAutoplay: document.getElementById("chk-autoplay"),
+      speedBtns: document.querySelectorAll(".speed-btn"),
+      btnShare: document.getElementById("btn-share"),
+      linkDirectMp3: document.getElementById("link-direct-mp3"),
+      drawerDiscLabel: document.getElementById("drawer-disc-label"),
+      trackCountBadge: document.getElementById("track-count-badge"),
+      trackGridContainer: document.getElementById("track-grid-container"),
+      errorBanner: document.getElementById("error-banner"),
+      errorMsg: document.getElementById("error-msg"),
+      toast: document.getElementById("toast"),
+      audio: document.getElementById("audio-engine")
+    };
+
+    /* ==========================================================================
+       主題系統 (Dark / Light Theme Toggle)
+       ========================================================================== */
+    function updateThemeIcon(theme) {
+      dom.themeIcon.textContent = theme === "light" ? "☀️" : "🌙";
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem("hippo_theme");
+      const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+      const theme = saved || (prefersLight ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+      updateThemeIcon(theme);
+
+      dom.themeToggle.addEventListener("click", () => {
+        const cur = document.documentElement.getAttribute("data-theme") || "dark";
+        const next = cur === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("hippo_theme", next);
+        updateThemeIcon(next);
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", next === "light" ? "#f8fafc" : "#0f172a");
+      });
+    }
+
+    /* ==========================================================================
+       音訊 URL 解析與元數據
+       ========================================================================== */
+    function getAudioUrl(bookId, discNum, trackNum) {
+      const book = HESS_CATALOG.books[bookId];
+      if (!book) return "";
+      const disc = book.discs[discNum];
+      if (!disc) return "";
+      return `${HESS_CATALOG.baseUrl}${disc.folder}/${trackNum}.mp3`;
+    }
+
+    function formatTime(seconds) {
+      if (isNaN(seconds) || seconds < 0) return "00:00";
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function showToast(msg) {
+      dom.toast.textContent = msg;
+      dom.toast.classList.add("show");
+      clearTimeout(dom.toast._timer);
+      dom.toast._timer = setTimeout(() => {
+        dom.toast.classList.remove("show");
+      }, 2200);
+    }
+
+    /* ==========================================================================
+       UI 渲染與狀態同步
+       ========================================================================== */
+    function updateUIState() {
+      const book = HESS_CATALOG.books[state.currentBook];
+      const disc = book.discs[state.currentDisc];
+      const totalInBook = book.discs[1].totalTracks + book.discs[2].totalTracks;
+
+      // 1. 冊別與光碟資訊
+      dom.bookSelect.value = state.currentBook;
+      dom.totalTracksBadge.textContent = `全冊 ${totalInBook} 首`;
+      dom.discSub1.textContent = `${book.discs[1].totalTracks} 首 (Track 01~${book.discs[1].totalTracks})`;
+      dom.discSub2.textContent = `${book.discs[2].totalTracks} 首 (Track 01~${book.discs[2].totalTracks})`;
+
+      // 光碟按鈕選中態
+      dom.discBtn1.classList.toggle("active", state.currentDisc === 1);
+      dom.discBtn2.classList.toggle("active", state.currentDisc === 2);
+
+      // 2. 雙格輸入數值同步
+      dom.inputCd.value = state.currentDisc;
+      dom.inputTrack.value = state.currentTrack.toString().padStart(2, "0");
+
+      // 3. 正在播放卡片資訊
+      dom.bookCoverImg.src = book.cover;
+      dom.nowSeries.textContent = `${book.name.split(" ")[0]} ${book.name.split(" ")[1] || ""} · CD ${state.currentDisc}`;
+      dom.nowTitle.textContent = `CD${state.currentDisc} Track ${state.currentTrack.toString().padStart(2, "0")}`;
+      dom.nowSub.textContent = `${disc.folder} / ${state.currentTrack}.mp3`;
+
+      // 下載連結直通
+      const currentUrl = getAudioUrl(state.currentBook, state.currentDisc, state.currentTrack);
+      dom.linkDirectMp3.href = currentUrl;
+
+      // 4. 曲目抽屜與標籤
+      dom.drawerDiscLabel.textContent = `CD ${state.currentDisc}`;
+      dom.trackCountBadge.textContent = `共 ${disc.totalTracks} 首`;
+      renderTrackGrid();
+
+      // 5. 播放/暫停按鈕樣式
+      setPlayingVisuals(state.isPlaying);
+
+      // 6. Deep Linking 參數同步至 URL (無感知替換)
+      const url = new URL(window.location.href);
+      url.searchParams.set("book", state.currentBook);
+      url.searchParams.set("cd", state.currentDisc);
+      url.searchParams.set("track", state.currentTrack);
+      window.history.replaceState({}, "", url.toString());
+
+      // 7. 更新系統級 Media Session (鎖屏 / 耳機線控)
+      updateMediaSession();
+    }
+
+    function setPlayingVisuals(playing) {
+      state.isPlaying = playing;
+      const icon = playing ? "⏸" : "▶";
+      dom.mainPlayIcon.textContent = icon;
+      dom.jumpPlayIcon.textContent = icon;
+      dom.btnPlayToggle.classList.toggle("is-playing", playing);
+      dom.btnJumpPlay.classList.toggle("is-playing", playing);
+    }
+
+    function renderTrackGrid() {
+      const book = HESS_CATALOG.books[state.currentBook];
+      const disc = book.discs[state.currentDisc];
+      dom.trackGridContainer.innerHTML = "";
+
+      const fragment = document.createDocumentFragment();
+      for (let t = 1; t <= disc.totalTracks; t++) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `track-pill ${t === state.currentTrack ? "active" : ""}`;
+        btn.textContent = t.toString().padStart(2, "0");
+        btn.title = `播放 CD${state.currentDisc} Track ${t}`;
+        btn.addEventListener("click", () => {
+          loadAndPlay(state.currentBook, state.currentDisc, t);
+        });
+        fragment.appendChild(btn);
+      }
+      dom.trackGridContainer.appendChild(fragment);
+
+      // 自動將目前進行中的 track 捲入視線
+      const activePill = dom.trackGridContainer.querySelector(".track-pill.active");
+      if (activePill) {
+        activePill.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    }
+
+    /* ==========================================================================
+       核心播放邏輯 (Audio Engine Controls)
+       ========================================================================== */
+    function loadAndPlay(bookId, discNum, trackNum, autoPlay = true) {
+      const book = HESS_CATALOG.books[bookId];
+      if (!book) return;
+      const maxTracks = book.discs[discNum].totalTracks;
+
+      // 邊界防禦與循環校正
+      if (trackNum < 1) trackNum = 1;
+      if (trackNum > maxTracks) trackNum = maxTracks;
+
+      state.currentBook = bookId;
+      state.currentDisc = discNum;
+      state.currentTrack = trackNum;
+
+      const targetUrl = getAudioUrl(bookId, discNum, trackNum);
+      dom.errorBanner.style.display = "none";
+
+      // 設定音訊來源並載入
+      dom.audio.src = targetUrl;
+      dom.audio.playbackRate = state.playbackRate;
+      dom.audio.loop = state.isLooping;
+
+      updateUIState();
+
+      if (autoPlay) {
+        const playPromise = dom.audio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setPlayingVisuals(true);
+            })
+            .catch(err => {
+              console.warn("自動播放被瀏覽器策略攔截或音訊端點尚未快取:", err);
+              setPlayingVisuals(false);
+            });
+        }
+      } else {
+        setPlayingVisuals(false);
+      }
+    }
+
+    function togglePlay() {
+      if (dom.audio.paused) {
+        if (!dom.audio.src) {
+          loadAndPlay(state.currentBook, state.currentDisc, state.currentTrack, true);
+        } else {
+          dom.audio.play().then(() => setPlayingVisuals(true)).catch(() => setPlayingVisuals(false));
+        }
+      } else {
+        dom.audio.pause();
+        setPlayingVisuals(false);
+      }
+    }
+
+    function playPrevTrack() {
+      const book = HESS_CATALOG.books[state.currentBook];
+      if (state.currentTrack > 1) {
+        loadAndPlay(state.currentBook, state.currentDisc, state.currentTrack - 1, true);
+      } else if (state.currentDisc === 2) {
+        // 從 CD2 第1首退回 CD1 最後一首
+        const prevDiscTotal = book.discs[1].totalTracks;
+        loadAndPlay(state.currentBook, 1, prevDiscTotal, true);
+      } else {
+        showToast("已是本冊第一首曲目");
+      }
+    }
+
+    function playNextTrack() {
+      const book = HESS_CATALOG.books[state.currentBook];
+      const curMax = book.discs[state.currentDisc].totalTracks;
+
+      if (state.currentTrack < curMax) {
+        loadAndPlay(state.currentBook, state.currentDisc, state.currentTrack + 1, true);
+      } else if (state.currentDisc === 1 && book.discs[2]) {
+        // 自動順滑切換至 CD2 第 1 首
+        showToast("已順接至 CD 2！");
+        loadAndPlay(state.currentBook, 2, 1, true);
+      } else {
+        showToast("已播放完畢全冊所有曲目");
+        setPlayingVisuals(false);
+      }
+    }
+
+    /* ==========================================================================
+       進度條與拖曳操控 (Smooth Touch & Mouse Scrubbing)
+       ========================================================================== */
+    function updateProgress(e) {
+      const rect = dom.progressContainer.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      let pos = (clientX - rect.left) / rect.width;
+      pos = Math.max(0, Math.min(1, pos));
+      
+      dom.progressFill.style.width = (pos * 100) + "%";
+      if (dom.audio.duration) {
+        dom.timeCurrent.textContent = formatTime(pos * dom.audio.duration);
+      }
+      return pos;
+    }
+
+    function setupProgressBar() {
+      const onScrubStart = (e) => {
+        state.isDraggingProgress = true;
+        const pos = updateProgress(e);
+        if (dom.audio.duration) {
+          dom.audio.currentTime = pos * dom.audio.duration;
+        }
+      };
+
+      const onScrubMove = (e) => {
+        if (!state.isDraggingProgress) return;
+        updateProgress(e);
+      };
+
+      const onScrubEnd = (e) => {
+        if (!state.isDraggingProgress) return;
+        state.isDraggingProgress = false;
+        const pos = updateProgress(e);
+        if (dom.audio.duration) {
+          dom.audio.currentTime = pos * dom.audio.duration;
+        }
+      };
+
+      dom.progressContainer.addEventListener("mousedown", onScrubStart);
+      window.addEventListener("mousemove", onScrubMove);
+      window.addEventListener("mouseup", onScrubEnd);
+
+      dom.progressContainer.addEventListener("touchstart", onScrubStart, { passive: true });
+      window.addEventListener("touchmove", onScrubMove, { passive: true });
+      window.addEventListener("touchend", onScrubEnd);
+    }
+
+    /* ==========================================================================
+       Media Session API (鎖屏、耳機線控、智慧手錶)
+       ========================================================================== */
+    function updateMediaSession() {
+      if (!('mediaSession' in navigator)) return;
+
+      const book = HESS_CATALOG.books[state.currentBook];
+      const titleStr = `Track ${state.currentTrack.toString().padStart(2, "0")}`;
+      const albumStr = `${book.name.split(" ")[0]} ${book.name.split(" ")[1] || ""} CD ${state.currentDisc}`;
+
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: titleStr,
+        artist: "何嘉仁國小英語 Go Magic!",
+        album: albumStr,
+        artwork: [
+          { src: "favicon.svg", sizes: "512x512", type: "image/svg+xml" },
+          { src: book.cover, sizes: "180x240", type: "image/jpeg" }
+        ]
+      });
+
+      navigator.mediaSession.setActionHandler("play", () => {
+        dom.audio.play();
+        setPlayingVisuals(true);
+      });
+      navigator.mediaSession.setActionHandler("pause", () => {
+        dom.audio.pause();
+        setPlayingVisuals(false);
+      });
+      navigator.mediaSession.setActionHandler("previoustrack", () => playPrevTrack());
+      navigator.mediaSession.setActionHandler("nexttrack", () => playNextTrack());
+      navigator.mediaSession.setActionHandler("seekbackward", (details) => {
+        dom.audio.currentTime = Math.max(0, dom.audio.currentTime - (details.seekOffset || 5));
+      });
+      navigator.mediaSession.setActionHandler("seekforward", (details) => {
+        dom.audio.currentTime = Math.min(dom.audio.duration || 0, dom.audio.currentTime + (details.seekOffset || 5));
+      });
+    }
+
+    /* ==========================================================================
+       事件綁定與初始化
+       ========================================================================== */
+    function bindEvents() {
+      // 冊別切換
+      dom.bookSelect.addEventListener("change", (e) => {
+        state.currentBook = e.target.value;
+        state.currentDisc = 1;
+        state.currentTrack = 1;
+        loadAndPlay(state.currentBook, state.currentDisc, state.currentTrack, state.isPlaying);
+      });
+
+      // 光碟片切換
+      dom.discBtn1.addEventListener("click", () => {
+        if (state.currentDisc !== 1) {
+          state.currentDisc = 1;
+          state.currentTrack = 1;
+          loadAndPlay(state.currentBook, 1, 1, state.isPlaying);
+        }
+      });
+      dom.discBtn2.addEventListener("click", () => {
+        if (state.currentDisc !== 2) {
+          state.currentDisc = 2;
+          state.currentTrack = 1;
+          loadAndPlay(state.currentBook, 2, 1, state.isPlaying);
+        }
+      });
+
+      // 雙欄輸入與跳轉
+      dom.inputCd.addEventListener("input", (e) => {
+        let val = parseInt(e.target.value, 10);
+        if (val === 1 || val === 2) {
+          state.currentDisc = val;
+          // 自動跳格至曲目欄
+          dom.inputTrack.focus();
+          dom.inputTrack.select();
+        }
+      });
+
+      const handleJumpSubmit = () => {
+        let cd = parseInt(dom.inputCd.value, 10) || 1;
+        let trk = parseInt(dom.inputTrack.value, 10) || 1;
+        if (cd !== 1 && cd !== 2) cd = 1;
+
+        const maxTrk = HESS_CATALOG.books[state.currentBook].discs[cd].totalTracks;
+        if (trk < 1) trk = 1;
+        if (trk > maxTrk) trk = maxTrk;
+
+        loadAndPlay(state.currentBook, cd, trk, true);
+      };
+
+      dom.btnJumpPlay.addEventListener("click", handleJumpSubmit);
+      dom.inputTrack.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          handleJumpSubmit();
+          dom.inputTrack.blur();
+        }
+      });
+
+      // 控制中心按鈕
+      dom.btnPlayToggle.addEventListener("click", togglePlay);
+      dom.btnPrev.addEventListener("click", playPrevTrack);
+      dom.btnNext.addEventListener("click", playNextTrack);
+      dom.btnRewind.addEventListener("click", () => {
+        dom.audio.currentTime = Math.max(0, dom.audio.currentTime - 5);
+      });
+      dom.btnForward.addEventListener("click", () => {
+        dom.audio.currentTime = Math.min(dom.audio.duration || 0, dom.audio.currentTime + 5);
+      });
+
+      // 單曲循環與連續播放
+      dom.chkLoop.addEventListener("change", (e) => {
+        state.isLooping = e.target.checked;
+        dom.audio.loop = state.isLooping;
+        showToast(state.isLooping ? "已開啟單曲循環" : "已關閉單曲循環");
+      });
+      dom.chkAutoplay.addEventListener("change", (e) => {
+        state.isAutoplayNext = e.target.checked;
+        showToast(state.isAutoplayNext ? "已開啟連續播放" : "已關閉連續播放");
+      });
+
+      // 播放倍速
+      dom.speedBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          dom.speedBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const spd = parseFloat(btn.dataset.speed) || 1.0;
+          state.playbackRate = spd;
+          dom.audio.playbackRate = spd;
+          showToast(`播放倍速：${spd}x`);
+        });
+      });
+
+      // 複製分享連結
+      dom.btnShare.addEventListener("click", () => {
+        const shareUrl = window.location.href;
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          dom.btnShare.classList.add("copied");
+          showToast("📋 已複製專屬曲目分享連結！");
+          setTimeout(() => dom.btnShare.classList.remove("copied"), 2000);
+        }).catch(() => {
+          showToast("複製失敗，請手動複製網址");
+        });
+      });
+
+      // Audio 引擎原生事件
+      dom.audio.addEventListener("timeupdate", () => {
+        if (state.isDraggingProgress) return;
+        const cur = dom.audio.currentTime;
+        const dur = dom.audio.duration;
+        dom.timeCurrent.textContent = formatTime(cur);
+
+        if (dur && !isNaN(dur)) {
+          const pct = (cur / dur) * 100;
+          dom.progressFill.style.width = pct + "%";
+        }
+      });
+
+      dom.audio.addEventListener("progress", () => {
+        if (dom.audio.buffered.length > 0 && dom.audio.duration) {
+          const bufferedEnd = dom.audio.buffered.end(dom.audio.buffered.length - 1);
+          const pct = (bufferedEnd / dom.audio.duration) * 100;
+          dom.progressBuffered.style.width = pct + "%";
+        }
+      });
+
+      dom.audio.addEventListener("loadedmetadata", () => {
+        dom.timeDuration.textContent = formatTime(dom.audio.duration);
+        dom.errorBanner.style.display = "none";
+      });
+
+      dom.audio.addEventListener("ended", () => {
+        if (state.isLooping) {
+          // 原生 loop 會自動重播
+        } else if (state.isAutoplayNext) {
+          playNextTrack();
+        } else {
+          setPlayingVisuals(false);
+        }
+      });
+
+      dom.audio.addEventListener("error", (e) => {
+        console.warn("Audio load error:", e);
+        dom.errorBanner.style.display = "flex";
+        dom.errorMsg.textContent = `音訊載入延遲，正在重試官方端點 (${state.currentTrack}.mp3)...`;
+        setPlayingVisuals(false);
+      });
+
+      // 全域鍵盤快捷鍵
+      window.addEventListener("keydown", (e) => {
+        // 若焦點在輸入框則不觸發播放快捷鍵
+        if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+
+        if (e.code === "Space") {
+          e.preventDefault();
+          togglePlay();
+        } else if (e.code === "ArrowLeft") {
+          e.preventDefault();
+          dom.audio.currentTime = Math.max(0, dom.audio.currentTime - 5);
+        } else if (e.code === "ArrowRight") {
+          e.preventDefault();
+          dom.audio.currentTime = Math.min(dom.audio.duration || 0, dom.audio.currentTime + 5);
+        } else if (e.key === "p" || e.key === "P") {
+          playPrevTrack();
+        } else if (e.key === "n" || e.key === "N") {
+          playNextTrack();
+        } else if (e.key === "l" || e.key === "L") {
+          dom.chkLoop.checked = !dom.chkLoop.checked;
+          dom.chkLoop.dispatchEvent(new Event("change"));
+        } else if (e.key === "m" || e.key === "M") {
+          dom.audio.muted = !dom.audio.muted;
+          showToast(dom.audio.muted ? "已靜音" : "已取消靜音");
+        }
+      });
+    }
+
+    /* ==========================================================================
+       初始化入口與 URL 參數解析 (Deep Link Bootstrap)
+       ========================================================================== */
+    function init() {
+      initTheme();
+      setupProgressBar();
+      bindEvents();
+
+      // 解析 URL 參數 (例如: ?book=GM1&cd=1&track=5)
+      const params = new URLSearchParams(window.location.search);
+      const paramBook = (params.get("book") || "GM1").toUpperCase();
+      const paramCd = parseInt(params.get("cd"), 10) || 1;
+      const paramTrack = parseInt(params.get("track"), 10) || 1;
+
+      const validBook = HESS_CATALOG.books[paramBook] ? paramBook : "GM1";
+      const validCd = (paramCd === 1 || paramCd === 2) ? paramCd : 1;
+      const maxT = HESS_CATALOG.books[validBook].discs[validCd].totalTracks;
+      const validTrack = Math.max(1, Math.min(maxT, paramTrack));
+
+      // 首次初始化載入 (不自動播放，等待使用者點擊，防止現代瀏覽器 Autoplay 阻擋)
+      loadAndPlay(validBook, validCd, validTrack, false);
+    }
+
+    // 啟動應用
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{
+  "title": "何嘉仁國小英語 Go Magic! 全系列 CD 線上聽",
+  "publisher": "何嘉仁 (Hess Educational Organization)",
+  "baseUrl": "https://neweteaching.hess.com.tw/CDOnline/audio/",
+  "defaultBook": "GM1",
+  "books": [
+    {
+      "id": "GM1",
+      "name": "Go Magic! 1 (第1冊 · 小三上)",
+      "cover": "https://neweteaching.hess.com.tw/CDOnline/images/GM1.jpg",
+      "totalDiscs": 2,
+      "totalTracks": 134,
+      "discs": [
+        {
+          "disc": 1,
+          "name": "CD 1",
+          "folder": "GM1-CD1",
+          "trackCount": 88
+        },
+        {
+          "disc": 2,
+          "name": "CD 2",
+          "folder": "GM1-CD2",
+          "trackCount": 46
+        }
+      ]
+    },
+    {
+      "id": "GM2",
+      "name": "Go Magic! 2 (第2冊 · 小三下)",
+      "cover": "https://neweteaching.hess.com.tw/CDOnline/images/GM2.jpg",
+      "totalDiscs": 2,
+      "totalTracks": 124,
+      "discs": [
+        {
+          "disc": 1,
+          "name": "CD 1",
+          "folder": "GM2-CD1",
+          "trackCount": 76
+        },
+        {
+          "disc": 2,
+          "name": "CD 2",
+          "folder": "GM2-CD2",
+          "trackCount": 48
+        }
+      ]
+    },
+    {
+      "id": "GM3",
+      "name": "Go Magic! 3 (第3冊 · 小四上)",
+      "cover": "https://neweteaching.hess.com.tw/CDOnline/images/GM3.jpg",
+      "totalDiscs": 2,
+      "totalTracks": 126,
+      "discs": [
+        {
+          "disc": 1,
+          "name": "CD 1",
+          "folder": "GM3-CD1",
+          "trackCount": 80
+        },
+        {
+          "disc": 2,
+          "name": "CD 2",
+          "folder": "GM3-CD2",
+          "trackCount": 46
+        }
+      ]
+    },
+    {
+      "id": "GM4",
+      "name": "Go Magic! 4 (第4冊 · 小四下)",
+      "cover": "https://neweteaching.hess.com.tw/CDOnline/images/GM4.jpg",
+      "totalDiscs": 2,
+      "totalTracks": 124,
+      "discs": [
+        {
+          "disc": 1,
+          "name": "CD 1",
+          "folder": "GM4-CD1",
+          "trackCount": 78
+        },
+        {
+          "disc": 2,
+          "name": "CD 2",
+          "folder": "GM4-CD2",
+          "trackCount": 46
+        }
+      ]
+    }
+  ]
+}
