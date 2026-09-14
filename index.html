@@ -1166,6 +1166,8 @@
       dom.jumpPlayIcon.textContent = icon;
       dom.btnPlayToggle.classList.toggle("is-playing", playing);
       dom.btnJumpPlay.classList.toggle("is-playing", playing);
+      dom.btnPlayToggle.title = playing ? "暫停 (Space)" : "播放 (Space)";
+      dom.btnJumpPlay.title = playing ? "暫停播放" : "立即播放";
     }
 
     function renderTrackGrid() {
@@ -1181,7 +1183,11 @@
         btn.textContent = t.toString().padStart(2, "0");
         btn.title = `播放 CD${state.currentDisc} Track ${t}`;
         btn.addEventListener("click", () => {
-          loadAndPlay(state.currentBook, state.currentDisc, t);
+          if (t === state.currentTrack && dom.audio.src) {
+            togglePlay();
+          } else {
+            loadAndPlay(state.currentBook, state.currentDisc, t);
+          }
         });
         fragment.appendChild(btn);
       }
@@ -1383,6 +1389,8 @@
           state.currentDisc = 1;
           state.currentTrack = 1;
           loadAndPlay(state.currentBook, 1, 1, state.isPlaying);
+        } else if (dom.audio.src) {
+          togglePlay();
         }
       });
       dom.discBtn2.addEventListener("click", () => {
@@ -1390,6 +1398,8 @@
           state.currentDisc = 2;
           state.currentTrack = 1;
           loadAndPlay(state.currentBook, 2, 1, state.isPlaying);
+        } else if (dom.audio.src) {
+          togglePlay();
         }
       });
 
@@ -1403,7 +1413,6 @@
         this.value = this.value.replace(/[^0-9]/g, "");
         const val = parseInt(this.value, 10);
         if (val === 1 || val === 2) {
-          state.currentDisc = val;
           // 自動跳格至曲目欄並全選
           dom.inputTrack.focus();
           dom.inputTrack.select();
@@ -1431,7 +1440,13 @@
         if (trk < 1) trk = 1;
         if (trk > maxTrk) trk = maxTrk;
 
-        loadAndPlay(state.currentBook, cd, trk, true);
+        // 若輸入的 CD 與 Track 與當前正在播放的檔案相同且音訊已載入，重複點擊切換為暫停/繼續
+        if (cd === state.currentDisc && trk === state.currentTrack && dom.audio.src) {
+          togglePlay();
+        } else {
+          // 播放新檔案
+          loadAndPlay(state.currentBook, cd, trk, true);
+        }
       };
 
       dom.btnJumpPlay.addEventListener("click", handleJumpSubmit);
@@ -1490,6 +1505,14 @@
       });
 
       // Audio 引擎原生事件
+      dom.audio.addEventListener("play", () => {
+        setPlayingVisuals(true);
+      });
+
+      dom.audio.addEventListener("pause", () => {
+        setPlayingVisuals(false);
+      });
+
       dom.audio.addEventListener("timeupdate", () => {
         if (state.isDraggingProgress) return;
         const cur = dom.audio.currentTime;
