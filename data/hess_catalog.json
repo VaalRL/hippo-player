@@ -1,4 +1,5 @@
 {
+  "_README": "參考資料，執行期不載入。index.html 內的 HESS_CATALOG 常數才是唯一生效的來源；修改曲目數時請以 index.html 為準並同步更新本檔。",
   "title": "國小英語教材 Go Magic! 全系列 CD 線上聽",
   "publisher": "國小英語教材出版事業",
   "baseUrl": "https://neweteaching.hess.com.tw/CDOnline/audio/",

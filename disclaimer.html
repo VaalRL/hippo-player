@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f172a">
+<title>法律免責聲明 · 河馬隨身聽</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("hippo_theme");
+      var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+      document.documentElement.setAttribute("data-theme", saved || (prefersLight ? "light" : "dark"));
+    } catch (e) {}
+  })();
+</script>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f1ece2;
+    --muted: #a79e8c;
+    --rule: rgba(255, 255, 255, 0.12);
+    --primary: #f19700;
+  }
+  [data-theme="light"] {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #221c14;
+    --muted: #6b6152;
+    --rule: rgba(0, 0, 0, 0.12);
+    --primary: #c2410c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+    line-height: 1.85;
+    font-size: 15px;
+    padding: 0 16px 56px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin: 24px 0 8px; padding: 8px 14px;
+    border: 1px solid var(--rule); border-radius: 10px;
+    color: var(--primary); font-size: 0.84rem; font-weight: 700; text-decoration: none;
+  }
+  .back:hover { border-color: var(--primary); }
+  h1 { font-size: 1.5rem; line-height: 1.45; margin: 18px 0 4px; text-wrap: balance; }
+  h2 {
+    font-size: 1.08rem; margin: 30px 0 10px; color: var(--primary);
+    line-height: 1.5; text-wrap: balance;
+  }
+  p { margin: 12px 0; color: var(--muted); }
+  p.meta { color: var(--text); font-size: 0.9rem; margin: 4px 0; }
+  ol { margin: 10px 0 10px 1.35em; color: var(--muted); }
+  li { margin: 9px 0; padding-left: 4px; }
+  strong { color: var(--text); font-weight: 700; }
+  cite { font-style: normal; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 26px 0; }
+  footer {
+    margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--rule);
+    font-size: 0.78rem; color: var(--muted);
+  }
+  footer a { color: var(--primary); font-weight: 700; }
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">&larr; 回到河馬隨身聽</a>
+  <h1>法律免責聲明與合理使用原則宣告 (Legal Disclaimer &amp; Fair Use Policy)</h1>
+  <p class="meta"><strong>生效日期</strong>：2026 年 9 月 12 日</p>
+  <p class="meta"><strong>專案名稱</strong>：河馬隨身聽 (Hippo Player)</p>
+  <hr>
+  <h2>一、專案宗旨與非營利定位 (Educational &amp; Non-Commercial Purpose)</h2>
+  <ol>
+  <li>本專案（以下簡稱「本軟體」）係基於個人前端技術研究、家庭學童課後自主複習輔助及無障礙介面優化目的所開發之純前端開源輔助工具。</li>
+  <li>本軟體為 <strong>100% 免費、開源且非營利</strong> 之獨立專案，無設置任何廣告投放、會員收費、付費訂閱、贊助打賞或商業營利機制。</li>
+  </ol>
+  <hr>
+  <h2>二、非官方與商標獨立性聲明 (Unofficial Independent Project)</h2>
+  <ol>
+  <li>本軟體為獨立個人研發成果，與相關實體英語教材之原出版機構、所屬母公司、關係企業或任何第三方機構均<strong>無任何官方形式之合作、代言、授權、投資或商業隸屬關係</strong>。</li>
+  <li>本軟體程式碼與介面中所提及之教材名稱、縮寫或代碼（如 Go Magic!、GM1、GM2 等），僅用於技術索引、路徑對照與客觀識別；所有教材相關之註冊商標、圖樣及商業外觀，均屬其各自法定權利人所有。</li>
+  </ol>
+  <hr>
+  <h2>三、音訊零託管與純客戶端轉發聲明 (Zero Audio Hosting &amp; Pass-through Streaming)</h2>
+  <ol>
+  <li>本軟體之 GitHub 原始碼儲存庫（Repository）及產出之網頁靜態代碼中，<strong>完全不包含、不儲存、不託管、亦未重製備份</strong>任何具有智慧財產權之音訊實體檔案（如 MP3、WAV 等）。</li>
+  <li>本軟體僅提供使用者在客戶端（Client-side）瀏覽器中輸入之課本編號，動態轉換為指向遠端公開網路路徑之純文字 URI；所有音訊封包之傳輸，均為使用者之個人終端設備直接向遠端公開伺服器發起之 HTTP 請求，本軟體與開發者不參與亦不經手任何資料傳輸中繼。</li>
+  <li><strong>連線資訊之揭露</strong>：由於音訊係由使用者裝置直接向遠端伺服器請求，該遠端伺服器將如同使用者以瀏覽器直接開啟該網址一般，取得使用者之 IP 位址與瀏覽器識別資訊。本軟體不蒐集、不儲存、不傳送任何使用者資料，亦未設置任何分析工具或第三方追蹤程式碼；並已於頁面設定 `referrer` 政策以避免轉送來源網址。</li>
+  </ol>
+  <hr>
+  <h2>四、實體正版教材配套與合理使用原則 (Physical Textbook Pairing &amp; Fair Use)</h2>
+  <ol>
+  <li><strong>實體課本配套之絕對必要性</strong>：本軟體所支援之音訊內容，本質上均為課堂對話、聽力填充題、發音跟讀（Chants）等附隨教材，<strong>其學習價值與實用性必須高度仰賴使用者手邊翻閱之正版實體課本圖文進行對照</strong>；若脫離實體印刷品，純粹音訊無法獨立構成完整的教育學習體系，亦無法作為實體書之替代品。</li>
+  <li><strong>市場不替代性</strong>：本軟體之存在不會降低消費者購買正版實體書籍之意願，亦無意以任何形式削弱權利人之教材銷售市場。</li>
+  <li><strong>合理使用</strong>：使用者若為合法取得/購買正版教科書之學員或家長，為課後複習、無障礙學習與輔助發音跟讀之目的使用本工具，符合中華民國<cite>《著作權法》</cite>第 51 條及第 65 條所規範之個人非營利合理使用範疇。</li>
+  </ol>
+  <hr>
+  <h2>五、免責條款與責任限制 (Limitation of Liability &amp; AS-IS Warranty)</h2>
+  <ol>
+  <li>本軟體依「現況（AS-IS）」原則提供，開發者不對本軟體之功能適用性、無錯誤性、網路連線即時性、遠端第三方伺服器端點之可用性或永續性提供任何明示或暗示之擔保。</li>
+  <li>開發者對於使用者因使用、無法使用本軟體，或因第三方遠端網路變動所引致之任何直接、間接、附隨性或衍生性損失，均不負任何法律賠償責任。</li>
+  <li>使用者應自行確認其利用行為是否符合所在地之相關法規及原正版教材之使用規範。</li>
+  </ol>
+  <hr>
+  <h2>六、權利人聯絡與侵權通知處理 (Notice &amp; Takedown Policy)</h2>
+  <p>本專案高度尊重智慧財產權。若任何版權所有者或合法代理人認為本軟體之索引機制或介面有不妥之處或涉嫌侵害其合法權益，請透過 GitHub Issue 或電子郵件聯繫開發者。我們將在收到具體且合法之通知後，依相關法規全力配合修正或移除相關代碼索引。</p>
+  <footer>
+    本頁內容與儲存庫中的 <code>DISCLAIMER.md</code> 相同，僅為方便在手機瀏覽器閱讀而提供 HTML 版本。<br>
+    <a href="https://github.com/VaalRL/hippo-player" target="_blank" rel="noopener">GitHub 原始碼</a>
+  </footer>
+</div>
+</body>
+</html>

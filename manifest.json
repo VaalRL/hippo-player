@@ -1,28 +1,44 @@
 {
+  "id": "/hippo-player/",
   "name": "河馬隨身聽 - Hippo Player",
   "short_name": "HippoPlayer",
   "description": "專為實體英語教材課後複習打造的極簡隨身聽 · 雙格純數字輸入 · 手機大數字鍵盤 · 即開即播",
+  "lang": "zh-TW",
+  "dir": "ltr",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "orientation": "portrait-primary",
+  "categories": [
+    "education",
+    "music"
+  ],
   "icons": [
-    {
-      "src": "favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ]
 }

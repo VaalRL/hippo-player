@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0%20(Pure%20Vanilla)-success)](#)
 [![Mobile Optimized](https://img.shields.io/badge/Mobile-iOS%20%2F%20Android-orange)](#)
-[![PWA Ready](https://img.shields.io/badge/PWA-Ready-purple)](#)
+[![PWA Ready](https://img.shields.io/badge/PWA-Service%20Worker-purple)](#)
 
 ---
 
@@ -37,7 +37,7 @@
   - `↺5` **快退 5 秒**（即時重聽剛才那句英語發音）
   - `( ▶ / ⏸ )` **中央主播放鍵**（動態呼吸光暈與狀態變色）
   - `5↻` **快進 5 秒**（快速略過已知提示音）
-  - `⏭` **下一首**（跨光碟自動進入 CD2 第 1 首）
+  - `⏭` **下一首**（跨光碟自動進入 CD2 第 1 首，本冊播畢再自動接續下一冊）
 - **Spotify 風格平滑進度條**：
   - 高精度觸控與滑鼠拖曳跳轉。
   - 即時顯示當前時間、總長度與網路緩衝進度條。
@@ -76,6 +76,7 @@
 ### 7. 🔗 網址即時同步與一鍵複製分享 (Deep Linking)
 - 播放時瀏覽器網址自動同步當前進度（如 `?book=GM1&cd=1&track=5`）。
 - 提供「📋 複製分享連結」按鈕，家長或老師可一鍵複製專屬直連網址傳至 LINE 或 Google Classroom，對方點開即可精準載入該冊該課該曲！
+- 另有「🔗 檢視音訊來源」可顯示目前曲目的原始串流位址（僅供技術檢視，本專案不提供任何下載或另存功能）。
 
 ### 8. ⌨️ 電腦與平板鍵盤快捷鍵 (Desktop Shortcuts)
 專為在筆電、桌機或外接鍵盤 iPad 上自學聽讀設計，無需頻繁移動滑鼠即可流暢操控（文字輸入時自動停用防誤觸）：
@@ -83,14 +84,20 @@
 | :--- | :--- | :--- |
 | `空白鍵 (Space)` | 播放 / 暫停 (Play / Pause) | 即時切換播放狀態 |
 | `←` / `→` | 快退 5 秒 / 快進 5 秒 | 會話句子精聽必備 |
-| `P` / `N` | 上一首 / 下一首 (Previous / Next) | 跨片自動銜接 |
+| `↑` / `↓` | 提高 / 降低音量 (±5%) | 螢幕同步顯示音量百分比 |
+| `[` / `]` 或 `P` / `N` | 上一首 / 下一首 | 跨片、跨冊自動銜接 |
 | `L` | 單曲循環開關 (Loop) | 一鍵鎖定反覆練習 |
-| `M` | 靜音 / 取消靜音 (Mute) | 快速靜音切換 |
+| `M` | 靜音 / 恢復音量 (Mute) | 快速靜音切換 |
+| `R` | 從頭重播本首 (Restart) | 即時回到 0:00 |
+| `Esc` | 離開輸入框焦點 | 恢復全域鍵盤操控 |
+
+> 快捷鍵配置與姊妹專案 [麒麟鹿player](https://github.com/VaalRL/Ki-lin-lok-uan-ka) 一致，兩個 app 可共用同一套肌肉記憶。
+> 進度條也可用 `Tab` 聚焦後以方向鍵、`Home`、`End` 操作。
 
 ### 9. ⚡ 零相依單檔架構 (Zero-Dependency Vanilla Architecture)
 - 100% 原生 HTML5 + CSS3 + Vanilla JavaScript。
 - **無任何外部相依套件**（No React, No Vue, No jQuery, No Bootstrap, No external CDN CSS/JS）。
-- 頁面初始體積僅約 35KB，無網路請求延遲，載入即刻可用。
+- 單一 HTML 檔約 64KB（含全部 CSS/JS 與 GM1~GM4 曲庫），首次載入零外部 JS/CSS 請求。
 
 ---
 
@@ -101,23 +108,16 @@
 ### 專屬線上網址
 👉 **[https://vaalrl.github.io/hippo-player/](https://vaalrl.github.io/hippo-player/)**
 
-### 本機推送代碼步驟
+### 本機開發與預覽
 ```bash
-# 在本機 hippo-player 目錄下執行
-git add .
-git commit -m "feat: release hippo-player with GM1~GM4 support and PWA assets"
-git branch -M main
-git remote add origin https://github.com/VaalRL/hippo-player.git
-git push -u origin main
+git clone https://github.com/VaalRL/hippo-player.git
+cd hippo-player
+npx http-server -p 8080     # 或任何靜態伺服器
 ```
+> Service Worker 需要 `http://` 或 `https://` 才會註冊，直接以 `file://` 開啟 `index.html` 仍可正常播放，只是沒有離線快取。
 
-### 啟用 GitHub Pages 設定
-1. 前往 GitHub 儲存庫頁面：`https://github.com/VaalRL/hippo-player`
-2. 點擊頂部的 **Settings**（設定）分頁。
-3. 在左側選單中找到 **Pages**。
-4. 在 **Build and deployment** 下方的 **Source** 選擇 **Deploy from a branch**。
-5. 將 **Branch** 選擇為 `main` 分支，資料夾選擇 `/ (root)`，點擊 **Save**。
-6. 等候約 30~60 秒，即可在 **[https://vaalrl.github.io/hippo-player/](https://vaalrl.github.io/hippo-player/)** 暢快使用！
+### GitHub Pages
+本專案已部署於 **[https://vaalrl.github.io/hippo-player/](https://vaalrl.github.io/hippo-player/)**，推送至 `main` 分支後會自動更新。
 
 ### 在手機上新增為 App (PWA)
 - **iPhone (iOS Safari)**：開啟網址 ➔ 點擊底部「分享」按鈕 ➔ 選擇 **「加入主畫面」**。

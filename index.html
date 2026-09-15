@@ -2,7 +2,8 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#0f172a">
@@ -12,12 +13,16 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="🦛 河馬隨身聽 Hippo Player - Go Magic! 全系列實體教材隨身聽">
   <meta property="og:description" content="專為實體英語教材課後複習打造的極簡隨身聽 · 雙格純數字鍵盤直連 · 手機大按鍵 · 即開即播">
-  <meta property="og:image" content="https://vaalrl.github.io/hippo-player/favicon.svg">
+  <meta property="og:image" content="https://vaalrl.github.io/hippo-player/icon-512.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
   <meta property="og:url" content="https://vaalrl.github.io/hippo-player/">
   
   <!-- Tab Icon (Favicon) & App Icons -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
   
   <!-- 防止深色/淺色切換時畫面閃爍 (Anti-FOUC Script) -->
@@ -40,6 +45,7 @@
       --primary: #f19700;        /* 招牌活力暖橘 */
       --primary-hover: #fb923c;
       --primary-glow: rgba(241, 151, 0, 0.35);
+      --on-primary: #23150a;     /* 橘底上的深暖色前景 (對比 7.2:1) */
       --bg: #0f172a;             /* 深午夜藍黑 */
       --card: #1e293b;           /* 沉穩深石板藍卡片 */
       --card-border: #334155;    /* 石板藍邊框 */
@@ -47,6 +53,7 @@
       --text-muted: #94a3b8;     /* 灰藍次級文字 */
       --accent: #38bdf8;         /* 活力天藍色 */
       --accent-hover: #0284c7;
+      --on-accent: #0f172a;
       --success: #10b981;        /* 翡翠綠 */
       --input-bg: #0b1120;       /* 深暗色輸入底色 */
       --input-text: #f8fafc;
@@ -61,13 +68,15 @@
       --primary: #ea580c;        /* 淺色下高對比活力暖橘 */
       --primary-hover: #f19700;
       --primary-glow: rgba(241, 151, 0, 0.25);
+      --on-primary: #ffffff;     /* #ea580c 底色下白字對比 4.6:1 */
+      --on-accent: #ffffff;
       --bg: #f8fafc;             /* 清朗雪白底色 */
       --card: #ffffff;           /* 純白卡片 */
       --card-border: #e2e8f0;    /* 淺灰邊框 */
       --text: #0f172a;           /* 深石板黑文字 */
       --text-muted: #64748b;     /* 石板灰次級文字 */
-      --accent: #0284c7;         /* 鮮豔晴空藍 */
-      --accent-hover: #0369a1;
+      --accent: #0369a1;         /* 加深以通過 AA (白字 5.3:1) */
+      --accent-hover: #075985;
       --success: #059669;        /* 翡翠綠 */
       --input-bg: #fff7ed;       /* 淡淡橘粉輸入框 */
       --input-text: #0f172a;
@@ -240,7 +249,7 @@
     .disc-btn.active {
       background: var(--primary);
       border-color: var(--primary);
-      color: #ffffff;
+      color: var(--on-primary);
       box-shadow: 0 4px 14px var(--primary-glow);
     }
 
@@ -308,7 +317,7 @@
     }
     .play-btn-main {
       background: var(--primary);
-      color: #ffffff;
+      color: var(--on-primary);
       border: none;
       border-radius: 14px;
       width: 52px;
@@ -514,7 +523,7 @@
     .ctrl-btn-main {
       background: var(--primary);
       border: none;
-      color: #ffffff;
+      color: var(--on-primary);
       width: 58px;
       height: 58px;
       border-radius: 50%;
@@ -576,7 +585,7 @@
     }
     .speed-btn.active {
       background: var(--accent);
-      color: #0f172a;
+      color: var(--on-accent);
       border-color: var(--accent);
       font-weight: 900;
     }
@@ -652,7 +661,7 @@
     }
     .track-pill.active {
       background: var(--primary);
-      color: #ffffff;
+      color: var(--on-primary);
       border-color: var(--primary);
       box-shadow: 0 2px 8px var(--primary-glow);
     }
@@ -706,6 +715,33 @@
       background: #fee2e2;
       border-color: #fca5a5;
       color: #b91c1c;
+    }
+
+    .retry-btn {
+      margin-left: auto;
+      background: transparent;
+      border: 1px solid currentColor;
+      color: inherit;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .link-box {
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      word-break: break-all;
+      margin-top: 8px;
+      user-select: all;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
     /* Floating Toast Notification */
@@ -769,6 +805,26 @@
     audio {
       display: none;
     }
+
+    /* 鍵盤焦點可見樣式 (C-06) */
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* C-02 進度條的鍵盤可操作樣式 */
+    .progress-bar-container:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -804,11 +860,11 @@
       </select>
 
       <div class="disc-switcher">
-        <button type="button" class="disc-btn active" data-disc="1" id="disc-btn-1">
+        <button type="button" class="disc-btn active" data-disc="1" id="disc-btn-1" aria-pressed="true">
           <span>💿 CD 1</span>
           <span class="disc-sub" id="disc-sub-1">88 首 (Track 01~88)</span>
         </button>
-        <button type="button" class="disc-btn" data-disc="2" id="disc-btn-2">
+        <button type="button" class="disc-btn" data-disc="2" id="disc-btn-2" aria-pressed="false">
           <span>💿 CD 2</span>
           <span class="disc-sub" id="disc-sub-2">46 首 (Track 01~46)</span>
         </button>
@@ -843,7 +899,8 @@
     <!-- 3. 正在播放展示與控制中心 -->
     <div class="card">
       <div class="player-display">
-        <img id="book-cover-img" src="https://neweteaching.hess.com.tw/CDOnline/images/GM1.jpg" alt="教材封面" class="book-cover-preview" onerror="this.src='favicon.svg'">
+        <img id="book-cover-img" src="https://neweteaching.hess.com.tw/CDOnline/images/GM1.jpg" alt="教材封面" class="book-cover-preview"
+             onerror="this.onerror=null; this.src='favicon.svg';">
         <div id="now-series" class="now-playing-series">Go Magic! 1 · CD 1</div>
         <div id="now-title" class="now-playing-title">CD1 Track 01</div>
         <div id="now-sub" class="now-playing-sub">GM1-CD1 / 1.mp3</div>
@@ -851,7 +908,10 @@
 
       <!-- 進度條與時間顯示 (Spotify 風格) -->
       <div class="progress-section">
-        <div class="progress-bar-container" id="progress-container">
+        <div class="progress-bar-container" id="progress-container"
+             role="slider" tabindex="0"
+             aria-label="播放進度" aria-valuemin="0" aria-valuemax="100"
+             aria-valuenow="0" aria-valuetext="00:00">
           <div class="progress-buffered" id="progress-buffered"></div>
           <div class="progress-bar-fill" id="progress-fill">
             <div class="progress-thumb"></div>
@@ -892,20 +952,24 @@
         </div>
       </div>
 
-      <!-- 分享連結與下載直連 -->
+      <!-- 分享連結與音訊來源檢視 -->
       <div class="share-row">
-        <button id="btn-share" class="action-btn" title="複製目前曲目的分享連結">
+        <button id="btn-share" class="action-btn" type="button" title="複製目前曲目的分享連結">
           <span>📋 複製分享連結</span>
         </button>
-        <a id="link-direct-mp3" class="action-btn" href="#" target="_blank" rel="noopener noreferrer" title="開啟官方 MP3 原始檔案">
-          <span>📥 另存 MP3</span>
-        </a>
+        <button id="btn-toggle-src" class="action-btn" type="button"
+                title="檢視此曲目的原始音訊位址" aria-expanded="false" aria-controls="source-url-box">
+          <span>🔗 檢視音訊來源</span>
+        </button>
       </div>
 
+      <div class="link-box" id="source-url-box" hidden>串流位址</div>
+
       <!-- 錯誤狀態提示橫幅 -->
-      <div id="error-banner" class="error-banner">
-        <span>⚠️</span>
-        <span id="error-msg">音訊載入中或遠端端點稍有延遲，正為您重試...</span>
+      <div id="error-banner" class="error-banner" role="alert">
+        <span aria-hidden="true">⚠️</span>
+        <span id="error-msg">音訊載入失敗。</span>
+        <button id="btn-retry" class="retry-btn" type="button">重新載入</button>
       </div>
     </div>
 
@@ -928,9 +992,12 @@
       <div class="shortcuts-keys">
         <span><code>Space</code> 播放/暫停</span>
         <span><code>←</code> <code>→</code> 快退/快進 5秒</span>
-        <span><code>P</code> <code>N</code> 上一首/下一首</span>
+        <span><code>↑</code> <code>↓</code> 音量 ±5%</span>
+        <span><code>[</code> <code>]</code> 或 <code>P</code> <code>N</code> 上/下一首</span>
         <span><code>L</code> 單曲循環</span>
         <span><code>M</code> 靜音</span>
+        <span><code>R</code> 從頭重播</span>
+        <span><code>Esc</code> 離開輸入框</span>
       </div>
     </div>
 
@@ -941,7 +1008,7 @@
         100% 免費開源純前端 · 僅供個人學習與持有實體教材課後對照使用
       </div>
       <div>
-        <a href="DISCLAIMER.md" target="_blank">法律免責聲明與合理使用原則</a> · 
+        <a href="disclaimer.html" target="_blank" rel="noopener">法律免責聲明與合理使用原則</a> · 
         <a href="https://github.com/VaalRL/hippo-player" target="_blank" rel="noopener">GitHub 原始碼</a>
       </div>
     </footer>
@@ -964,6 +1031,7 @@
       books: {
         "GM1": {
           id: "GM1",
+          shortName: "Go Magic! 1",
           name: "Go Magic! 1 (第1冊 · 小三上)",
           cover: "https://neweteaching.hess.com.tw/CDOnline/images/GM1.jpg",
           discs: {
@@ -973,6 +1041,7 @@
         },
         "GM2": {
           id: "GM2",
+          shortName: "Go Magic! 2",
           name: "Go Magic! 2 (第2冊 · 小三下)",
           cover: "https://neweteaching.hess.com.tw/CDOnline/images/GM2.jpg",
           discs: {
@@ -982,6 +1051,7 @@
         },
         "GM3": {
           id: "GM3",
+          shortName: "Go Magic! 3",
           name: "Go Magic! 3 (第3冊 · 小四上)",
           cover: "https://neweteaching.hess.com.tw/CDOnline/images/GM3.jpg",
           discs: {
@@ -991,6 +1061,7 @@
         },
         "GM4": {
           id: "GM4",
+          shortName: "Go Magic! 4",
           name: "Go Magic! 4 (第4冊 · 小四下)",
           cover: "https://neweteaching.hess.com.tw/CDOnline/images/GM4.jpg",
           discs: {
@@ -1012,6 +1083,12 @@
       playbackRate: 1.0,
       isDraggingProgress: false
     };
+
+    // 冊別順序 (供跨冊接續使用)
+    const BOOK_ORDER = Object.keys(HESS_CATALOG.books);
+
+    // 使用者是否已經操作過 (初始化時不自動捲動畫面)
+    let hasInteracted = false;
 
     // DOM 元素快取
     const dom = {
@@ -1046,7 +1123,9 @@
       chkAutoplay: document.getElementById("chk-autoplay"),
       speedBtns: document.querySelectorAll(".speed-btn"),
       btnShare: document.getElementById("btn-share"),
-      linkDirectMp3: document.getElementById("link-direct-mp3"),
+      btnToggleSrc: document.getElementById("btn-toggle-src"),
+      sourceUrlBox: document.getElementById("source-url-box"),
+      btnRetry: document.getElementById("btn-retry"),
       drawerDiscLabel: document.getElementById("drawer-disc-label"),
       trackCountBadge: document.getElementById("track-count-badge"),
       trackGridContainer: document.getElementById("track-grid-container"),
@@ -1125,6 +1204,8 @@
       // 光碟按鈕選中態
       dom.discBtn1.classList.toggle("active", state.currentDisc === 1);
       dom.discBtn2.classList.toggle("active", state.currentDisc === 2);
+      dom.discBtn1.setAttribute("aria-pressed", String(state.currentDisc === 1));
+      dom.discBtn2.setAttribute("aria-pressed", String(state.currentDisc === 2));
 
       // 2. 雙格輸入數值同步
       dom.inputCd.value = state.currentDisc;
@@ -1132,13 +1213,12 @@
 
       // 3. 正在播放卡片資訊
       dom.bookCoverImg.src = book.cover;
-      dom.nowSeries.textContent = `${book.name.split(" ")[0]} ${book.name.split(" ")[1] || ""} · CD ${state.currentDisc}`;
+      dom.nowSeries.textContent = `${book.shortName} · CD ${state.currentDisc}`;
       dom.nowTitle.textContent = `CD${state.currentDisc} Track ${state.currentTrack.toString().padStart(2, "0")}`;
       dom.nowSub.textContent = `${disc.folder} / ${state.currentTrack}.mp3`;
 
-      // 下載連結直通
-      const currentUrl = getAudioUrl(state.currentBook, state.currentDisc, state.currentTrack);
-      dom.linkDirectMp3.href = currentUrl;
+      // 原始音訊位址 (僅供檢視，不提供下載入口)
+      dom.sourceUrlBox.textContent = getAudioUrl(state.currentBook, state.currentDisc, state.currentTrack);
 
       // 4. 曲目抽屜與標籤
       dom.drawerDiscLabel.textContent = `CD ${state.currentDisc}`;
@@ -1170,35 +1250,59 @@
       dom.btnJumpPlay.title = playing ? "暫停播放" : "立即播放";
     }
 
+    // 目前方格所呈現的 (冊, 片)，用來判斷是否需要重建 DOM
+    let renderedGridKey = "";
+
     function renderTrackGrid() {
       const book = HESS_CATALOG.books[state.currentBook];
       const disc = book.discs[state.currentDisc];
-      dom.trackGridContainer.innerHTML = "";
+      const gridKey = `${state.currentBook}/${state.currentDisc}`;
 
-      const fragment = document.createDocumentFragment();
-      for (let t = 1; t <= disc.totalTracks; t++) {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = `track-pill ${t === state.currentTrack ? "active" : ""}`;
-        btn.textContent = t.toString().padStart(2, "0");
-        btn.title = `播放 CD${state.currentDisc} Track ${t}`;
-        btn.addEventListener("click", () => {
-          if (t === state.currentTrack && dom.audio.src) {
-            togglePlay();
-          } else {
-            loadAndPlay(state.currentBook, state.currentDisc, t);
-          }
-        });
-        fragment.appendChild(btn);
+      // 只有換冊或換片時才重建；同一片內換曲只切換 active class
+      if (gridKey !== renderedGridKey) {
+        const fragment = document.createDocumentFragment();
+        for (let t = 1; t <= disc.totalTracks; t++) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "track-pill";
+          btn.dataset.track = String(t);
+          btn.textContent = t.toString().padStart(2, "0");
+          btn.title = `播放 CD${state.currentDisc} Track ${t}`;
+          fragment.appendChild(btn);
+        }
+        dom.trackGridContainer.replaceChildren(fragment);
+        renderedGridKey = gridKey;
       }
-      dom.trackGridContainer.appendChild(fragment);
 
-      // 自動將目前進行中的 track 捲入視線
-      const activePill = dom.trackGridContainer.querySelector(".track-pill.active");
-      if (activePill) {
+      let activePill = null;
+      dom.trackGridContainer.querySelectorAll(".track-pill").forEach(pill => {
+        const isActive = Number(pill.dataset.track) === state.currentTrack;
+        pill.classList.toggle("active", isActive);
+        if (isActive) {
+          pill.setAttribute("aria-current", "true");
+          activePill = pill;
+        } else {
+          pill.removeAttribute("aria-current");
+        }
+      });
+
+      // 只在方格已展開且使用者不是剛載入頁面時才捲動，避免初始化時拉動畫面
+      if (activePill && hasInteracted) {
         activePill.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
     }
+
+    // 事件委派：整個方格只掛一個監聽器
+    dom.trackGridContainer.addEventListener("click", (e) => {
+      const pill = e.target.closest(".track-pill");
+      if (!pill) return;
+      const t = Number(pill.dataset.track);
+      if (t === state.currentTrack && dom.audio.src) {
+        togglePlay();
+      } else {
+        loadAndPlay(state.currentBook, state.currentDisc, t);
+      }
+    });
 
     /* ==========================================================================
        核心播放邏輯 (Audio Engine Controls)
@@ -1260,12 +1364,21 @@
       const book = HESS_CATALOG.books[state.currentBook];
       if (state.currentTrack > 1) {
         loadAndPlay(state.currentBook, state.currentDisc, state.currentTrack - 1, true);
-      } else if (state.currentDisc === 2) {
+        return;
+      }
+      if (state.currentDisc === 2) {
         // 從 CD2 第1首退回 CD1 最後一首
-        const prevDiscTotal = book.discs[1].totalTracks;
-        loadAndPlay(state.currentBook, 1, prevDiscTotal, true);
+        loadAndPlay(state.currentBook, 1, book.discs[1].totalTracks, true);
+        return;
+      }
+      // 本冊之首，退回上一冊 CD2 最後一首
+      const prevBookId = BOOK_ORDER[BOOK_ORDER.indexOf(state.currentBook) - 1];
+      if (prevBookId) {
+        const prevBook = HESS_CATALOG.books[prevBookId];
+        showToast(`已退回 ${prevBook.shortName}`);
+        loadAndPlay(prevBookId, 2, prevBook.discs[2].totalTracks, true);
       } else {
-        showToast("已是本冊第一首曲目");
+        showToast("已是第一冊的第一首曲目");
       }
     }
 
@@ -1275,12 +1388,21 @@
 
       if (state.currentTrack < curMax) {
         loadAndPlay(state.currentBook, state.currentDisc, state.currentTrack + 1, true);
-      } else if (state.currentDisc === 1 && book.discs[2]) {
+        return;
+      }
+      if (state.currentDisc === 1 && book.discs[2]) {
         // 自動順滑切換至 CD2 第 1 首
         showToast("已順接至 CD 2！");
         loadAndPlay(state.currentBook, 2, 1, true);
+        return;
+      }
+      // 本冊播畢，接續下一冊 CD1 第 1 首
+      const nextBook = BOOK_ORDER[BOOK_ORDER.indexOf(state.currentBook) + 1];
+      if (nextBook) {
+        showToast(`已順接至 ${HESS_CATALOG.books[nextBook].shortName}`);
+        loadAndPlay(nextBook, 1, 1, true);
       } else {
-        showToast("已播放完畢全冊所有曲目");
+        showToast("已播放完畢全系列所有曲目");
         setPlayingVisuals(false);
       }
     }
@@ -1288,26 +1410,56 @@
     /* ==========================================================================
        進度條與拖曳操控 (Smooth Touch & Mouse Scrubbing)
        ========================================================================== */
+    // 目前拖曳中的比例；touchend 時事件已無座標可讀，改用這個值定位
+    let scrubPos = 0;
+
+    // touchend / touchcancel 的 e.touches 是長度 0 的 TouchList (truthy)，
+    // 直接讀 e.touches[0].clientX 會丟 TypeError，所以優先取 changedTouches。
+    function getEventClientX(e) {
+      const touch = (e.touches && e.touches[0]) ||
+                    (e.changedTouches && e.changedTouches[0]);
+      return touch ? touch.clientX : e.clientX;
+    }
+
+    function setScrubVisual(pos) {
+      scrubPos = Math.max(0, Math.min(1, pos));
+      dom.progressFill.style.width = (scrubPos * 100) + "%";
+      const dur = dom.audio.duration;
+      if (dur && !isNaN(dur)) {
+        dom.timeCurrent.textContent = formatTime(scrubPos * dur);
+      }
+      updateProgressAria(scrubPos);
+      return scrubPos;
+    }
+
     function updateProgress(e) {
       const rect = dom.progressContainer.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      let pos = (clientX - rect.left) / rect.width;
-      pos = Math.max(0, Math.min(1, pos));
-      
-      dom.progressFill.style.width = (pos * 100) + "%";
-      if (dom.audio.duration) {
-        dom.timeCurrent.textContent = formatTime(pos * dom.audio.duration);
+      const clientX = getEventClientX(e);
+      if (clientX === undefined || !rect.width) return scrubPos;
+      return setScrubVisual((clientX - rect.left) / rect.width);
+    }
+
+    // C-02 讓螢幕閱讀器讀得到目前進度
+    function updateProgressAria(pos) {
+      const dur = dom.audio.duration;
+      dom.progressContainer.setAttribute("aria-valuenow", String(Math.round(pos * 100)));
+      dom.progressContainer.setAttribute(
+        "aria-valuetext",
+        dur && !isNaN(dur) ? `${formatTime(pos * dur)} / ${formatTime(dur)}` : "尚未載入"
+      );
+    }
+
+    function seekToPos(pos) {
+      const dur = dom.audio.duration;
+      if (dur && !isNaN(dur)) {
+        dom.audio.currentTime = pos * dur;
       }
-      return pos;
     }
 
     function setupProgressBar() {
       const onScrubStart = (e) => {
         state.isDraggingProgress = true;
-        const pos = updateProgress(e);
-        if (dom.audio.duration) {
-          dom.audio.currentTime = pos * dom.audio.duration;
-        }
+        seekToPos(updateProgress(e));
       };
 
       const onScrubMove = (e) => {
@@ -1318,10 +1470,7 @@
       const onScrubEnd = (e) => {
         if (!state.isDraggingProgress) return;
         state.isDraggingProgress = false;
-        const pos = updateProgress(e);
-        if (dom.audio.duration) {
-          dom.audio.currentTime = pos * dom.audio.duration;
-        }
+        seekToPos(updateProgress(e));
       };
 
       dom.progressContainer.addEventListener("mousedown", onScrubStart);
@@ -1331,44 +1480,73 @@
       dom.progressContainer.addEventListener("touchstart", onScrubStart, { passive: true });
       window.addEventListener("touchmove", onScrubMove, { passive: true });
       window.addEventListener("touchend", onScrubEnd);
+      window.addEventListener("touchcancel", onScrubEnd);
+
+      // C-02 進度條的鍵盤操作 (方向鍵 ±5 秒、Home / End)
+      dom.progressContainer.addEventListener("keydown", (e) => {
+        const dur = dom.audio.duration;
+        if (!dur || isNaN(dur)) return;
+        let handled = true;
+        if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+          dom.audio.currentTime = Math.max(0, dom.audio.currentTime - 5);
+        } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+          dom.audio.currentTime = Math.min(dur, dom.audio.currentTime + 5);
+        } else if (e.key === "Home") {
+          dom.audio.currentTime = 0;
+        } else if (e.key === "End") {
+          dom.audio.currentTime = dur;
+        } else {
+          handled = false;
+        }
+        if (handled) e.preventDefault();
+      });
     }
 
     /* ==========================================================================
        Media Session API (鎖屏、耳機線控、智慧手錶)
        ========================================================================== */
+    // action handler 與 metadata 分離：handler 全程只註冊一次
+    function initMediaSessionHandlers() {
+      if (!('mediaSession' in navigator)) return;
+      const set = (action, fn) => {
+        try { navigator.mediaSession.setActionHandler(action, fn); } catch (e) {}
+      };
+      set("play", () => { dom.audio.play().catch(() => {}); });
+      set("pause", () => { dom.audio.pause(); });
+      set("previoustrack", () => playPrevTrack());
+      set("nexttrack", () => playNextTrack());
+      set("seekbackward", (details) => {
+        dom.audio.currentTime = Math.max(0, dom.audio.currentTime - ((details && details.seekOffset) || 5));
+      });
+      set("seekforward", (details) => {
+        const dur = dom.audio.duration;
+        if (!dur || isNaN(dur)) return;
+        dom.audio.currentTime = Math.min(dur, dom.audio.currentTime + ((details && details.seekOffset) || 5));
+      });
+      set("seekto", (details) => {
+        if (details && details.seekTime != null) dom.audio.currentTime = details.seekTime;
+      });
+    }
+
     function updateMediaSession() {
       if (!('mediaSession' in navigator)) return;
 
       const book = HESS_CATALOG.books[state.currentBook];
       const titleStr = `Track ${state.currentTrack.toString().padStart(2, "0")}`;
-      const albumStr = `${book.name.split(" ")[0]} ${book.name.split(" ")[1] || ""} CD ${state.currentDisc}`;
+      const albumStr = `${book.shortName} · CD ${state.currentDisc}`;
 
       navigator.mediaSession.metadata = new MediaMetadata({
         title: titleStr,
         artist: "Go Magic! 國小英語 (GM Series)",
         album: albumStr,
         artwork: [
-          { src: "favicon.svg", sizes: "512x512", type: "image/svg+xml" },
+          { src: "icon-192.png", sizes: "192x192", type: "image/png" },
+          { src: "icon-512.png", sizes: "512x512", type: "image/png" },
           { src: book.cover, sizes: "180x240", type: "image/jpeg" }
         ]
       });
 
-      navigator.mediaSession.setActionHandler("play", () => {
-        dom.audio.play();
-        setPlayingVisuals(true);
-      });
-      navigator.mediaSession.setActionHandler("pause", () => {
-        dom.audio.pause();
-        setPlayingVisuals(false);
-      });
-      navigator.mediaSession.setActionHandler("previoustrack", () => playPrevTrack());
-      navigator.mediaSession.setActionHandler("nexttrack", () => playNextTrack());
-      navigator.mediaSession.setActionHandler("seekbackward", (details) => {
-        dom.audio.currentTime = Math.max(0, dom.audio.currentTime - (details.seekOffset || 5));
-      });
-      navigator.mediaSession.setActionHandler("seekforward", (details) => {
-        dom.audio.currentTime = Math.min(dom.audio.duration || 0, dom.audio.currentTime + (details.seekOffset || 5));
-      });
+      navigator.mediaSession.playbackState = dom.audio.paused ? "paused" : "playing";
     }
 
     /* ==========================================================================
@@ -1432,13 +1610,22 @@
       });
 
       const handleJumpSubmit = () => {
-        let cd = parseInt(dom.inputCd.value, 10) || 1;
-        let trk = parseInt(dom.inputTrack.value, 10) || 1;
-        if (cd !== 1 && cd !== 2) cd = 1;
+        const rawCd = parseInt(dom.inputCd.value, 10);
+        const rawTrk = parseInt(dom.inputTrack.value, 10);
+        let cd = rawCd || 1;
+        let trk = rawTrk || 1;
+        if (cd !== 1 && cd !== 2) {
+          showToast(`本冊只有 CD 1 與 CD 2，已改為 CD ${cd > 2 ? 2 : 1}`);
+          cd = cd > 2 ? 2 : 1;
+        }
 
         const maxTrk = HESS_CATALOG.books[state.currentBook].discs[cd].totalTracks;
-        if (trk < 1) trk = 1;
-        if (trk > maxTrk) trk = maxTrk;
+        if (trk > maxTrk) {
+          showToast(`CD ${cd} 只有 ${maxTrk} 首，已跳到第 ${maxTrk} 首`);
+          trk = maxTrk;
+        } else if (trk < 1) {
+          trk = 1;
+        }
 
         // 若輸入的 CD 與 Track 與當前正在播放的檔案相同且音訊已載入，重複點擊切換為暫停/繼續
         if (cd === state.currentDisc && trk === state.currentTrack && dom.audio.src) {
@@ -1492,6 +1679,21 @@
         });
       });
 
+      // 檢視原始音訊位址 (僅顯示，不提供下載入口)
+      dom.btnToggleSrc.addEventListener("click", () => {
+        const nowHidden = !dom.sourceUrlBox.hidden;
+        dom.sourceUrlBox.hidden = nowHidden;
+        dom.btnToggleSrc.setAttribute("aria-expanded", String(!nowHidden));
+        dom.btnToggleSrc.querySelector("span").textContent =
+          nowHidden ? "🔗 檢視音訊來源" : "🔗 隱藏音訊來源";
+      });
+
+      // U-05 重新載入目前曲目 (取代先前那句不存在的「正在重試」)
+      dom.btnRetry.addEventListener("click", () => {
+        dom.errorBanner.style.display = "none";
+        loadAndPlay(state.currentBook, state.currentDisc, state.currentTrack, true);
+      });
+
       // 複製分享連結
       dom.btnShare.addEventListener("click", () => {
         const shareUrl = window.location.href;
@@ -1522,6 +1724,7 @@
         if (dur && !isNaN(dur)) {
           const pct = (cur / dur) * 100;
           dom.progressFill.style.width = pct + "%";
+          updateProgressAria(cur / dur);
         }
       });
 
@@ -1550,36 +1753,111 @@
 
       dom.audio.addEventListener("error", (e) => {
         console.warn("Audio load error:", e);
+        // 尚未設定 src 時瀏覽器也會觸發 error，這種情況不需要嚇使用者
+        if (!dom.audio.getAttribute("src")) return;
         dom.errorBanner.style.display = "flex";
-        dom.errorMsg.textContent = `音訊載入延遲，正在重試官方端點 (${state.currentTrack}.mp3)...`;
+        dom.errorMsg.textContent =
+          `第 ${state.currentTrack} 首載入失敗，請確認網路連線後再試一次。`;
         setPlayingVisuals(false);
       });
 
-      // 全域鍵盤快捷鍵
+      // 全域鍵盤快捷鍵 (與麒麟鹿player 一致，兩個 app 可共用肌肉記憶)
       window.addEventListener("keydown", (e) => {
-        // 若焦點在輸入框則不觸發播放快捷鍵
-        if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+        // 修飾鍵組合交給瀏覽器或作業系統
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
 
-        if (e.code === "Space") {
-          e.preventDefault();
-          togglePlay();
-        } else if (e.code === "ArrowLeft") {
-          e.preventDefault();
-          dom.audio.currentTime = Math.max(0, dom.audio.currentTime - 5);
-        } else if (e.code === "ArrowRight") {
-          e.preventDefault();
-          dom.audio.currentTime = Math.min(dom.audio.duration || 0, dom.audio.currentTime + 5);
-        } else if (e.key === "p" || e.key === "P") {
-          playPrevTrack();
-        } else if (e.key === "n" || e.key === "N") {
-          playNextTrack();
-        } else if (e.key === "l" || e.key === "L") {
-          dom.chkLoop.checked = !dom.chkLoop.checked;
-          dom.chkLoop.dispatchEvent(new Event("change"));
-        } else if (e.key === "m" || e.key === "M") {
-          dom.audio.muted = !dom.audio.muted;
-          showToast(dom.audio.muted ? "已靜音" : "已取消靜音");
+        // 正在打字時停用快捷鍵；Escape 可離開輸入框恢復全域操控
+        const el = document.activeElement;
+        const isEditing = el && (
+          el.tagName === "INPUT" ||
+          el.tagName === "SELECT" ||
+          el.tagName === "TEXTAREA" ||
+          el.isContentEditable
+        );
+        if (isEditing) {
+          if (e.key === "Escape") el.blur();
+          return;
         }
+
+        // 進度條聚焦時方向鍵由它自己處理 (見 setupProgressBar)
+        if (el === dom.progressContainer &&
+            ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
+          return;
+        }
+
+        const seekBy = (delta) => {
+          const dur = dom.audio.duration;
+          if (!dur || isNaN(dur)) return;
+          dom.audio.currentTime = Math.max(0, Math.min(dur, dom.audio.currentTime + delta));
+        };
+        const setVolume = (delta) => {
+          if (delta > 0) dom.audio.muted = false;
+          dom.audio.volume = Math.max(0, Math.min(1, Math.round((dom.audio.volume + delta) * 100) / 100));
+          showToast(dom.audio.volume === 0
+            ? "🔇 音量 0%"
+            : `🔊 音量 ${Math.round(dom.audio.volume * 100)}%`);
+        };
+
+        switch (e.key) {
+          case " ":
+            e.preventDefault();
+            togglePlay();
+            break;
+          case "ArrowLeft":
+            e.preventDefault();
+            seekBy(-5);
+            showToast(`↺ 快退 5 秒 (${formatTime(dom.audio.currentTime)})`);
+            break;
+          case "ArrowRight":
+            e.preventDefault();
+            seekBy(5);
+            showToast(`5↻ 快進 5 秒 (${formatTime(dom.audio.currentTime)})`);
+            break;
+          case "ArrowUp":
+            e.preventDefault();
+            setVolume(0.05);
+            break;
+          case "ArrowDown":
+            e.preventDefault();
+            setVolume(-0.05);
+            break;
+          case "[":
+          case "p":
+          case "P":
+            e.preventDefault();
+            playPrevTrack();
+            break;
+          case "]":
+          case "n":
+          case "N":
+            e.preventDefault();
+            playNextTrack();
+            break;
+          case "l":
+          case "L":
+            e.preventDefault();
+            dom.chkLoop.checked = !dom.chkLoop.checked;
+            dom.chkLoop.dispatchEvent(new Event("change"));
+            break;
+          case "m":
+          case "M":
+            e.preventDefault();
+            dom.audio.muted = !dom.audio.muted;
+            showToast(dom.audio.muted ? "🔇 已靜音" : `🔊 恢復音量 (${Math.round(dom.audio.volume * 100)}%)`);
+            break;
+          case "r":
+          case "R":
+            e.preventDefault();
+            dom.audio.currentTime = 0;
+            if (dom.audio.paused) dom.audio.play().catch(() => {});
+            showToast("↺ 從頭重播本首");
+            break;
+        }
+      });
+
+      // 使用者一旦操作過，之後換曲才允許自動捲動曲目方格
+      ["pointerdown", "keydown"].forEach(evt => {
+        window.addEventListener(evt, () => { hasInteracted = true; }, { once: true });
       });
     }
 
@@ -1590,6 +1868,7 @@
       initTheme();
       setupProgressBar();
       bindEvents();
+      initMediaSessionHandlers();
 
       // 解析 URL 參數 (例如: ?book=GM1&cd=1&track=5)
       const params = new URLSearchParams(window.location.search);
@@ -1608,6 +1887,15 @@
 
     // 啟動應用
     document.addEventListener("DOMContentLoaded", init);
+
+    // Service Worker：快取 app shell 讓離線也能開啟 (音訊一律走網路，不快取)
+    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch(err => {
+          console.warn("Service worker 註冊失敗:", err);
+        });
+      });
+    }
   </script>
 </body>
 </html>
