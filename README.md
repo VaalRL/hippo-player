@@ -12,6 +12,8 @@
 [![Mobile Optimized](https://img.shields.io/badge/Mobile-iOS%20%2F%20Android-orange)](#)
 [![PWA Ready](https://img.shields.io/badge/PWA-Service%20Worker-purple)](#)
 
+> **English summary** — Hippo Player is an unofficial, zero-dependency single-file web app for reviewing *Go Magic!* 1–4 elementary English textbook audio after class. Open your printed textbook, type the CD and track numbers shown on the page (e.g. CD `1`, Track `05`) on a big numeric keypad, and the matching track streams instantly. Features loop / continuous play, 0.75x–1.5x speed, lock-screen & headphone controls (Media Session), shareable deep links, keyboard shortcuts, dark mode, and an installable PWA shell. No audio is hosted in this repository — see the [disclaimer](DISCLAIMER.md).
+
 ---
 
 ## 📖 專案簡介 (Introduction)
@@ -33,11 +35,11 @@
 
 ### 2. 🎵 專業洗鍊的播放控制中心
 - **純圖示控制按鈕（無文字干擾）**：
-  - `⏮` **上一首**（跨光碟自動銜接上一片最後一首）
   - `↺5` **快退 5 秒**（即時重聽剛才那句英語發音）
+  - `⏮` **上一首**（跨光碟自動銜接上一片最後一首）
   - `( ▶ / ⏸ )` **中央主播放鍵**（動態呼吸光暈與狀態變色）
-  - `5↻` **快進 5 秒**（快速略過已知提示音）
   - `⏭` **下一首**（跨光碟自動進入 CD2 第 1 首，本冊播畢再自動接續下一冊）
+  - `5↻` **快進 5 秒**（快速略過已知提示音）
 - **Spotify 風格平滑進度條**：
   - 高精度觸控與滑鼠拖曳跳轉。
   - 即時顯示當前時間、總長度與網路緩衝進度條。
@@ -94,10 +96,16 @@
 > 快捷鍵配置與姊妹專案 [麒麟鹿player](https://github.com/VaalRL/Ki-lin-lok-uan-ka) 一致，兩個 app 可共用同一套肌肉記憶。
 > 進度條也可用 `Tab` 聚焦後以方向鍵、`Home`、`End` 操作。
 
-### 9. ⚡ 零相依單檔架構 (Zero-Dependency Vanilla Architecture)
+### 9. ⚡ 零相依單檔架構與離線介面 (Zero-Dependency Vanilla Architecture)
 - 100% 原生 HTML5 + CSS3 + Vanilla JavaScript。
 - **無任何外部相依套件**（No React, No Vue, No jQuery, No Bootstrap, No external CDN CSS/JS）。
-- 單一 HTML 檔約 64KB（含全部 CSS/JS 與 GM1~GM4 曲庫），首次載入零外部 JS/CSS 請求。
+- 單一 HTML 檔約 66KB（含全部 CSS/JS 與 GM1~GM4 曲庫），首次載入零外部 JS/CSS 請求。
+- 內建 Service Worker 快取介面本體，從手機桌面圖示開啟時即使離線也看得到介面。
+- **音訊本身一律即時串流、從不快取**，離線狀態下可以開啟介面但無法播放。
+
+### 10. ♿ 無障礙與窄螢幕支援
+- 進度條具 `role="slider"` 與完整 ARIA 屬性，冊別、光碟與控制按鈕皆有無障礙標籤與狀態標示。
+- 支援 `prefers-reduced-motion`；380px 以下的小螢幕另有斷點，雙格輸入不會撐破版面。
 
 ---
 
@@ -126,6 +134,20 @@ npx http-server -p 8080     # 或任何靜態伺服器
 
 ---
 
+## 🗂️ 專案結構 (Project Structure)
+
+| 檔案 | 說明 |
+| :--- | :--- |
+| `index.html` | 應用程式本體（HTML / CSS / JS 全部內嵌），內含唯一生效的曲庫常數 `HESS_CATALOG` |
+| `sw.js` | Service Worker：只快取 app shell，音訊與跨網域資源一律不攔截 |
+| `manifest.json`、`icon-*.png`、`favicon*`、`apple-touch-icon.png` | PWA 安裝資訊與圖示 |
+| `disclaimer.html` / `DISCLAIMER.md` | 免責聲明（網頁版 / Markdown 版） |
+| `hippo-player.html` | 舊網址相容用的轉址頁，保留查詢參數導向 `index.html` |
+| `data/hess_catalog.json` | 曲庫參考資料，執行期不載入；修改曲目數時以 `index.html` 為準並同步更新 |
+| `.nojekyll` | 讓 GitHub Pages 直接提供靜態檔，不經 Jekyll 處理 |
+
+---
+
 ## ⚖️ 法律免責聲明與合理使用原則宣告 (Legal Disclaimer)
 
 本專案之開發與開源僅作為**個人家庭課後自主學習輔助與無障礙介面優化之技術研究用途**。請詳閱完整的 [DISCLAIMER.md](DISCLAIMER.md)：
@@ -135,6 +157,14 @@ npx http-server -p 8080     # 或任何靜態伺服器
 3. **無音訊伺服器託管**：本專案 Repository **完全不包含、不儲存、亦未託管** 任何 MP3 音檔。所有音訊皆由使用者個人瀏覽器在客戶端發起直接連線。
 4. **實體教材必備性**：本工具播放之音軌均為課堂練習指令與聽力配合題，**若無正版實體課本圖文對照，無法達成實質學習效果**。本專案強烈呼籲並倡導使用者購買合法正版之紙本教材。
 5. **著作權歸屬**：所有教材內容、錄音與商標之智慧財產權，均屬原出版機構或其法定權利人所有。
+
+---
+
+## 🔒 隱私 (Privacy)
+
+本專案無任何分析工具、廣告或第三方追蹤程式碼，不蒐集也不傳送任何使用者資料，瀏覽器本機只保存深淺色主題設定。
+唯一的對外連線是瀏覽器直接向遠端伺服器請求音訊與封面圖片；該伺服器會如同您直接開啟該網址一般取得 IP 位址，
+頁面已設定 `referrer` 政策避免轉送來源網址。詳見 [DISCLAIMER.md](DISCLAIMER.md)。
 
 ---
 
